@@ -25,26 +25,38 @@ N = 2;
 
 P = [4 8];
 
-% Specify target accuracy
-
-A = zeros(length(P),length(X));
-bes = besseli(N,X);
-
-for eP = 10.^P
-    A = [A; trunc(bes)];
-end
-
-% Track number of iterations needed to achieve some accuracy
-
-targetAccuracyAchieved = zeros(length(P),length(X));
-
 % Try different numbers of iterations, starting with low values, and
 % see how many are necessary to get desired precision
 
 maxStart = N + 50;      % Maximum number of iterations is 50
 start = N + 1;          % Which term to start on; init to single-step
+myi = zeros(maxStart+1,length(X));
 
-epsilons = zeros(1,50); % Relative error for each number of steps
+% Get actual bessel function values for besseli(N,X)
+
+bes = zeros(maxStart + 1,length(X));
+for n=1:maxStart+1
+    bes(n,:) = besseli(n,X);
+end
+
+% Specify target accuracy; row indicates decimal accuracy of actual bessel
+% function, column indicates x value. N is specified above.
+
+A = zeros(length(P),length(X));
+
+for i=1:length(P)
+    for j=1:length(X)
+        A(i,j) = trunc(bes(N,j),10^P(i));
+    end
+end
+
+disp('Calculated actual bessel values');
+
+% Track number of iterations needed to achieve some accuracy
+
+targetAccuracyAchieved = zeros(length(P),length(X));
+
+relEpsilons = zeros(maxStart+1,length(X)); % Rel error for each number of steps
 
 while start <= maxStart % Loop through and see when P precision is hit
     
@@ -56,17 +68,17 @@ while start <= maxStart % Loop through and see when P precision is hit
             myi(n-1,j) = myi(n+1,j) + 2*n*myi(n,j)/X(j);
         end                             % ...recursively find In-1(x)
     end
-    myi0 = myi(2,:) + 2 * myi(1,:) ./ X; % Contains I0(x) for all x in X
+    myi0 = myi(2,:) + 2 * myi(1,:) ./ X; % Find I0(x) for all x in X
     
     % Normalize using 1 = I0 - 2*I2 + 2*I4 - ...
-    s = myi0 * 0.5;
+    s = myi0 * 0.5;         % Each x in X has it's own norm. factor
     for n=2:2:40
         s = s + (-1)^(n/2) * myi(n,:);
     end
     s = s .* 2;
-    % Divide by s for each value in X
-    for j=1:length(x)
-        myi(:,j) =  nmyi ./ s;
+    % Divide by normalization factor for each set of In(x)
+    for j=1:length(X)
+        myi(:,j) =  myi(:,j) / s(j);
     end
     
     % Check whether this number of iterations provided sufficient
@@ -75,24 +87,43 @@ while start <= maxStart % Loop through and see when P precision is hit
     
     skipAhead = true;
     
-    for i=1:length(targetAccuracyAchieved(:))
-        if targetAccuracyAchieved(i) == 0
+    for p=1:length(length(P))
+        for x=1:length(X)
+        if targetAccuracyAchieved(p,x) == 0
             skipAhead = false;      % Precision not reached, don't skip
-            if A(i) == trunc(myi(N))
+            if A(p,x) == trunc(myi(N,x),10^P(p))
                 targetAccuracyAchieved(i) = start - N - 1;
             end
+        end
         end
     end
     
     if skipAhead
         start = maxStart;       % Done honing, go for max accuracy
+        disp('Done honing, go for max accuracy');
     else
         start = start + 1;      % Not done honing precision; do next iter
     end
     
 end
 
-% Calculate epsilon at each recursion step
+% Calculate epsilon at each recursion step for each X
 
-for 
-    
+for i=1:length(X)
+    relEpsilons(:,i) = abs(myi(:,i)./bes(:,i) - 1);
+end
+
+logRelEpsilons = log10(relEpsilons);
+
+h=figure;
+mesh(logRelEpsilons);
+hold all;
+mesh(log10(eps)*ones(size(logRelEpsilons)));
+title( { 'Relative Error vs. Machine Epsilon';...
+    ['While Calculating besseli(',...
+    num2str(N), ',x)'] }, 'Fontsize', 18);
+xlabel('x', 'Fontsize', 18);
+ylabel('Steps Remaining, n', 'Fontsize', 18);
+zlabel('Log10 of Relative Error', 'Fontsize', 18);
+% legend({'z = log(relativeError)'; 'z = log(machineEpsilon)'}); 
+print(h, '-dpdf', [ 'Error while Calculating besseli' num2str(N) '.pdf']);

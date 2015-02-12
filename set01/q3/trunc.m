@@ -1,6 +1,6 @@
 % Decimal truncation function, ripped from RDM's cosine_recursion_trunc.m
 
-function [r] = trunc(y)
+function [r] = trunc(y,eP)
 
 
     if ( eP < 1 + eps )

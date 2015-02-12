@@ -88,7 +88,7 @@ for eP = 10.^P
     
     %  Print out a pdf file
     
-    % print(h, '-dpdf', [ 'cosine_recursion_truncation_precision_' num2str(log10(eP),'%2d') '.pdf' ]);
+    print(h, '-dpdf', [ 'cosine_recursion_truncation_precision_' num2str(log10(eP),'%2d') '.pdf' ]);
     
 end
 
