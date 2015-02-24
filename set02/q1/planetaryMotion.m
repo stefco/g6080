@@ -1,14 +1,14 @@
 % 2/22/2015 Stefan Countryman
 
-function [ r ] = planetaryMotion( varargin )
+function [ r ] = planetaryMotion( numBodies, numIterations, X, mass, initial )
 % PLANETARYMOTION  1st-order planetary motion predictor-corrector
 %   r = PLANETARYMOTION(p) takes a struct p where, e.g.,
 %
-%     p.NB           (number of planets/bodies)
-%     p.N            (number of simulation steps)
-%     p.dx           (step size)
-%     p.m            (masses in solar mass units)
-%     p.in(d,i)      (init values, dth dimension, ith body,
+%     NB             (number of planets/bodies)
+%     N              (number of simulation steps)
+%     X              (step size)
+%     mass           (masses in solar mass units)
+%     init(d,i)      (init values, dth dimension, ith body,
 %                      rEarth units)
 %
 %   And returns a struct r with those same properties as well as
@@ -31,61 +31,54 @@ mEarth = 5.972e24;     % Earth mass, kg
 gNewt  = 6.673e-11;    % Gravitational Constant, N m^2 kg^-2
 
 % Determine natural units
-gTilde = G * mSolar^2 * rEarth^2;
+gTilde = gNewt * mSolar^2 * rEarth^2;
 tUnits = sqrt( rEarth^3 / ( gNewt * mSolar ) );
 
-if nargin = 0
-    % Initialize default values, from RDM's assignment
-    p.NB = 3;
-    p.N  = 3e4;
-    p.dx = 2e-4;
-    p.m  = [1, 1e-2, 1e-2];
-    % Initial values for bodies (note that sun rests at center):
-    p.in = zeros(6, p.NB);
-    p.in(1,2) = 1;
-    p.in(5,2) = 1;
-    p.in(1,3) = -1;
-    p.in(5,3) = 1.04;
-end
+% if nargin = 0
+%     % Initialize default values, from RDM's assignment
+%     p.NB = 3;
+%     p.N  = 3e4;
+%     p.dx = 2e-4;
+%     p.m  = [1, 1e-2, 1e-2];
+%     % Initial values for bodies (note that sun rests at center):
+%     p.in = zeros(6, p.NB);
+%     p.in(1,2) = 1;
+%     p.in(5,2) = 1;
+%     p.in(1,3) = -1;
+%     p.in(5,3) = 1.04;
+% end
 
 % Check arguments
-if ~isinteger(p.NB) | p.NB < 2
-    error('planetaryMotion:numberBodies', ['p.NB must be an ' ...
+if (numBodies < 2)
+    error('planetaryMotion:numIterations', ['numBodies must be an ' ...
                         'int >= 2.']);
-elseif ~isinteger(p.N) | p.NB < 1
-    error('planetaryMotion:numberSteps', ['p.NB must be a ' ...
-                        'positive in.']);
-elseif p.dx < 0
-    error('planetaryMotion:stepSize', 'p.dx must be positive.');
-elseif size(p.m) ~= [1 p.NB]
-    error('planetaryMotion:argumentMismatch', ['p.m must be ' ...
-                        'row vector with length p.NB.']);
-elseif size(p.in) ~= [6 p.NB]
-    error('planetaryMotion:argumentMismatch', ['p.in must ' ...
-                        'have 6 rows and p.NB columns.']);
+elseif (numIterations < 1)
+    error('planetaryMotion:numIterations', ['numIterations must be a ' ...
+                        'positive int.']);
+elseif (X < 0)
+    error('planetaryMotion:stepSize', 'X must be positive.');
+elseif (size(mass) ~= [1 numBodies])
+    error('planetaryMotion:argumentMismatch', ['mass must be ' ...
+                        'row vector with length numBodies.']);
+elseif (size(initial) ~= [6 numBodies])
+    error('planetaryMotion:argumentMismatch', ['init must ' ...
+                        'have 6 rows and numBodies columns.']);
 end
 
 % Make sure masses are positive
-arePositive = (p.m > 0);
+arePositive = (mass > 0);
 for isPositive=arePositive
     if ~isPositive
-        error('planetaryMotion:negativeMasses', ['p.m ' ...
+        error('planetaryMotion:negativeMasses', ['mass ' ...
                             'values must be positive']);
     end
 end
 
-% Use local variables for simplicity
-numBodies = p.NB;
-numIterations = p.N;
-X = p.dx;
-mass = p.m;
-r.y(:,:,1) = p.in;
-
 % Initialize results
-r.NB  = p.NB;                 % Number of bodies, >=2
-r.N   = p.N;                  % Number of simulation steps
-r.dx  = p.dx;                 % Step size
-r.m   = p.m;                  % Masses of bodies
+r.NB  = numBodies;            % Number of bodies, >=2
+r.N   = numIterations;        % Number of simulation steps
+r.dx  = X;                    % Step size
+r.m   = mass;                 % Masses of bodies
 
 r.y   = zeros(6,numBodies, numIterations);
 r.f   = zeros(6,numBodies, numIterations);
@@ -93,7 +86,10 @@ r.pe  = zeros(numBodies, numIterations);
 r.ke  = zeros(numBodies, numIterations);
 r.pet = zeros(1, numIterations);
 r.ket = zeros(1, numIterations);
-r.y   = zeros(1, numIterations);
+r.e   = zeros(1, numIterations);
+
+% Use local variables for simplicity
+r.y(:,:,1) = initial;
 
 % Forces and potential/kinetic/total energies for 1st step
 KE(1);
@@ -107,7 +103,7 @@ for n = 1:numIterations-1
   % Predict derivative:  Fp[n+1] = F(Yp(n+1))
   PEandF(n+1);
   % Correct position:    Y[n+1]  = Y[n] + X*Fp[n+1]
-  r.y[:,:,n+1] = r.y[:,:,n] + X * r.f[:,:,n+1];
+  r.y(:,:,n+1) = r.y(:,:,n) + X * r.f(:,:,n+1);
   % Correct derivative:  F[n+1]  = F(Y(n+1))
   PEandF(n+1);
   % Kinnetic energy
@@ -137,10 +133,6 @@ function [] = PEandF(nn)
   % nnth total potential energy starts at zero
   r.pet(nn) = 0.0;
 
-  % Declare variables
-  deltaR = zeros(3,1);
-  normR = 0.0;
-  
   % Calculate pe and f for each body
   for ii=1:numBodies
     % Initialize to zero
@@ -168,4 +160,5 @@ function [] = PEandF(nn)
     % Add energy contribution to total PE
     r.pet(nn) = r.pet(nn) + r.pe(ii,nn);
   end
+end
 end
