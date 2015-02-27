@@ -78,6 +78,7 @@ end
 r.NB  = numBodies;            % Number of bodies, >=2
 r.N   = numIterations;        % Number of simulation steps
 r.dx  = X;                    % Step size
+r.dt  = X * tUnits;           % Step size, in seconds
 r.m   = mass;                 % Masses of bodies
 
 r.y   = zeros(6,numBodies, numIterations);
