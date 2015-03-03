@@ -1,4 +1,4 @@
-% Example from problem set write-up
+% Part 1
 numBodies       = 3;
 numIterations   = 9e4;
 X               = 2e-4;
@@ -10,3 +10,5 @@ initial( 1, 3 ) = -1;
 initial( 5, 3 ) = 1.04;
 
 r = planetaryMotion( numBodies, numIterations, X, mass, initial );
+
+plotTest;

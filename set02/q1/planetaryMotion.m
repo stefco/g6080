@@ -7,7 +7,7 @@ function [ r ] = planetaryMotion( numBodies, numIterations, X, mass, initial )
 %     NB             (number of planets/bodies)
 %     N              (number of simulation steps)
 %     X              (step size)
-%     mass           (masses in solar mass units)
+%     mass           (masses in solar mass units);f
 %     init(d,i)      (init values, dth dimension, ith body,
 %                      rEarth units)
 %
@@ -31,22 +31,8 @@ mEarth = 5.972e24;     % Earth mass, kg
 gNewt  = 6.673e-11;    % Gravitational Constant, N m^2 kg^-2
 
 % Determine natural units
-gTilde = gNewt * mSolar^2 * rEarth^2;
 tUnits = sqrt( rEarth^3 / ( gNewt * mSolar ) );
-
-% if nargin = 0
-%     % Initialize default values, from RDM's assignment
-%     p.NB = 3;
-%     p.N  = 3e4;
-%     p.dx = 2e-4;
-%     p.m  = [1, 1e-2, 1e-2];
-%     % Initial values for bodies (note that sun rests at center):
-%     p.in = zeros(6, p.NB);
-%     p.in(1,2) = 1;
-%     p.in(5,2) = 1;
-%     p.in(1,3) = -1;
-%     p.in(5,3) = 1.04;
-% end
+gTilde = gNewt * mSolar * tUnits^2 / rEarth^4;
 
 % Check arguments
 if (numBodies < 2)
@@ -88,8 +74,6 @@ r.ke  = zeros(numBodies, numIterations);
 r.pet = zeros(1, numIterations);
 r.ket = zeros(1, numIterations);
 r.e   = zeros(1, numIterations);
-
-% Use local variables for simplicity
 r.y(:,:,1) = initial;
 
 % Forces and potential/kinetic/total energies for 1st step
@@ -113,13 +97,16 @@ for n = 1:numIterations-1
   r.e(n+1) = r.ket(n+1) + r.pet(n+1);
 end
 
+% Save results file
+save('planetary-motion-results', 'r');
+
 % Function for calculating Kinetic Energy
 function [] = KE(nn)
 
   % nnth total kinetic energy starts at 0 
   r.ket(nn) = 0.0;
 
-  % Calculate ket for each body
+  % Calculate ke for each body
   for ii=1:numBodies
     r.ke(ii,nn) = 0.5 * r.m(ii) ...
       * dot(r.y(4:6,ii,nn),r.y(4:6,ii,nn));
