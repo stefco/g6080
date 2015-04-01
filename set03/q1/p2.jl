@@ -1,4 +1,4 @@
-## PART 2 
+## PART 2
 
 include("meansofbins.jl");
 
@@ -41,4 +41,31 @@ for i in [1:5]
 end
 println("\n\t...which is pretty close.");
 
-println("\nSee below for histograms.");
+# Histogram for dataset 1
+println("\n\tMaking histograms and placing in 'histograms' vector")
+using Gadfly
+histograms = Plot[];
+for j in [1:5]
+  push!(
+    histograms,
+    plot(
+      layer(
+          x = v̄1[:,j],
+          color = ["N1 = 1,000" for i in 1:25],
+          Geom.histogram(bincount=25, density=true),
+          order=1
+      ),
+      layer(
+          x = v̄2[:,j],
+          color = ["N2 = 10,000" for i in 1:25],
+          Geom.histogram(bincount=25, density=true),
+          order=2,
+          Theme(default_color=color("red"))
+      ),
+      Guide.xlabel("Sample mean"),
+      Guide.ylabel("Relative Frequency"),
+      Guide.title(join(["Sample Mean Histogram in Dataset",string(j)]," ")),
+      Guide.colorkey("Legend title"),
+    )
+  )
+end
