@@ -10,3 +10,18 @@ function autocorrelation(M, v, a, ns)
     end
     return correlations;
 end
+
+# find autocorrelation time for datasets v, M samples, cutoff ncut
+function τ(M, v, ncut);
+    ns = [0:ncut];
+
+    # Find autocorrelation times
+    tau = Float64[];
+    for a in [1:5]
+        # Just sum over the normalized autocorrelations
+        corra = autocorrelation(M, v, a, ns);
+        corra /= corra[1];                 # Normalize
+        push!(tau,sum(corra) - 0.5);       # Get autocorrelation time
+    end
+    return tau;
+end
