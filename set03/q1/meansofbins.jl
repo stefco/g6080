@@ -1,5 +1,6 @@
 # Calculate sample means for each bin and dataset
 function meansofbins(N, M, v)
+    # M cannot be larger thn the size of v
     cuts = [N:N:M];         # Cut points for each bucket
     means = Float64[];      # Array holding mean values
     start = 1;
