@@ -17,7 +17,8 @@ function τ(M, v, ncut);
 
     # Find autocorrelation times
     tau = Float64[];
-    for a in [1:5]
+    ndatasets = size(v)[2];
+    for a in [1:ndatasets]
         # Just sum over the normalized autocorrelations
         corra = autocorrelation(M, v, a, ns);
         corra /= corra[1];                 # Normalize
