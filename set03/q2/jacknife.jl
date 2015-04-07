@@ -23,16 +23,19 @@ end
 #   jacknife resampled means (v̄′), the mean of the sample (μ),
 #   and the estimated standard deviation of the dataset (σ).
 function jacknife(v, N, b)
+    # Handle at least two datasets at a time (for now)
+    nsets = size(v)[2];
+
     # Split the sample of size N into chunks of size b
     nbins = int(floor(N/b));
     include("../q1/meansofbins.jl");
     
     # Jacknife estimate the averages μ and std dev σ.
-    v̄ = zeros(nbins,5);
-    v̄′ = zeros(nbins,5);
-    μ = zeros(5);
-    σ = zeros(5);
-    for i in [1:5]
+    v̄ = zeros(nbins,nsets);
+    v̄′ = zeros(nbins,nsets);
+    μ = zeros(nsets);
+    σ = zeros(nsets);
+    for i in [1:nsets]
         v̄[:,i] = meansofbins(b, N, v[:,i]);
         v̄′[:,i] = jackniferesample(v̄[:,i]);        # resample 
         μ[i] = mean(v̄′[:,i]);                      # estimate v̄
@@ -41,7 +44,7 @@ function jacknife(v, N, b)
     return jnestimator(v̄,v̄′,μ,σ);
 end
 
-# estimate σ for vectorized f(v) using jacknife estimator input
+# estimate σ for vectorized f(v̄) using jacknife estimator input
 function jacknifeσ(f::Function, j::jnestimator)
     x = f(j.v̄′) .- f(transpose(j.μ));
     return sqrt( dot(x,x) * ( 1 - 1/length(x) ) );
