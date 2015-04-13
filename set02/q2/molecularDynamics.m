@@ -92,7 +92,7 @@ for nn = 1:numIterations-1
         * r.f( :, :, nn );
     % Calculate next velocity
     r.v( :, :, nn + 1 ) = r.v( :, :, nn + 1 ) + 0.5 * r.dx ...
-        * r.f( :, :, nn );
+        * r.f( :, :, nn +1 );
     % Calculate next kinetic energy
     KE( nn + 1 );
     % Total energy
