@@ -9,7 +9,7 @@ function mdplace!(r::MolecularDynamicsTrial)
     gridNotches = ceil( r.numBodies ^ (1/3) );
 
     # We need to know how long each grid unit is
-    gridUnit = r.sideLength / gridNotches;
+    gridUnit = r.L / gridNotches;
 
     # Iterate through the bodies and lay them down in neat little rows
     for i in 1:r.numBodies
@@ -23,6 +23,11 @@ function mdplace!(r::MolecularDynamicsTrial)
             r.y[j,i,1] = grid * gridUnit;       # scale by box size
         end
     end
+
+    # Calculate energies for 1st step
+    kineticenergy!( r, 1 )
+    potentialenergyandforce!( r, 1 )
+    r.e[1] = r.ket[1] + r.pet[1]
 
     # Particles are now placed, so say we are on step 1
     r.currentStep = 1;
