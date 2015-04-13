@@ -6,7 +6,7 @@ type MolecularDynamicsTrial
     Td::Float64                     # Desired temperature
     dx::Float64                     # Time step; defaults to Verlet's value
     V::Float64                      # Volume of box
-    sideLength::Float64             # Side length of box
+    L::Float64                      # Side length of box
     steps::Int64                    # How long to run the simulation
     σ::Float64                      # Length scale, from Verlet, in m
     ϵ::Float64                      # Energy scale, in Kelvin
@@ -64,4 +64,87 @@ function ==( r::MolecularDynamicsTrial, p::MolecularDynamicsTrial )
         end
     end
     return true
+end
+
+# Check if trial is finished
+function isfinished( r::MolecularDynamicsTrial )
+    return r.currentStep == r.steps
+end
+
+# Duplicate a trial
+function duplicate( r::MolecularDynamicsTrial )
+    p = MolecularDynamicsTrial()
+    for field in names( MolecularDynamicsTrial )
+        p.(field) = r.(field)
+    end
+    assert(p == r)
+    return p
+end
+
+# Extract a sub-trial TODO : reimplement using slicedim(A,d,i)
+function subtrial( r::MolecularDynamicsTrial, n::Int, m::Int )
+    if r.steps < m
+        error( "Out of bounds: final step must be less than r.steps" )
+    elseif m < n
+        error( "first step must be less than final step" )
+    elseif n < 1
+        error( "Out of bounds: first step must be greater than or equal to 1")
+    else
+        steps = m - n + 1
+        numBodies = r.numBodies
+        p = MolecularDynamicsTrial(numBodies,1,0,0,steps,0,1,0);
+        for field in names( MolecularDynamicsTrial )
+            if :steps == field
+                continue                            # clobber not total steps
+            elseif isa( r.(field), Array )
+                fsize = size( p.(field) )           # dimensions of the field
+                perstep = prod(fsize[1:(end-1)])    # elements per step
+                first = (n-1)*perstep + 1           # first element to copy
+                last = m*perstep                    # last element to copy
+                assert((last-first+1)==perstep*steps)   # correct num elements
+                i = 1
+                for j in first:last                 # linear indexing to set p
+                    p.(field)[i] = r.(field)[j]
+                    i+=1
+                end
+            else
+                p.(field) = r.(field)
+            end
+        end
+        return p
+    end
+end
+
+# Lop of unfinished steps
+function truncate( r::MolecularDynamicsTrial )
+    if isfinished( r )
+        return r
+    else
+        return subtrial( r, 1, r.currentStep )      # go till last finished step
+    end
+end
+
+# Add steps, if you need to run for longer
+function addsteps( r::MolecularDynamicsTrial, n::Int )
+    if n<0
+        error( "Must specify non-negative number of steps to add" )
+    else
+        steps = r.steps + n
+        numBodies = r.numBodies
+        p = MolecularDynamicsTrial(numBodies,1,0,0,steps,0,1,0);
+        for field in names( MolecularDynamicsTrial )
+            if :steps == field
+                continue                            # clobber not total steps
+            elseif isa( r.(field), Array )
+                i = 1
+                for val in r.(field)[1:end]         # linear indexing to set p
+                    p.(field)[i] = val
+                    i+=1
+                end
+            else
+                p.(field) = r.(field)               # copy scalar fields
+            end
+        end
+        return p
+    end
 end
