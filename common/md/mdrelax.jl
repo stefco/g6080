@@ -5,6 +5,7 @@
 ################################################################################
 function relax!( r::MolecularDynamicsTrial, n::Int64 )
     r.v[:,:,n] = sqrt(r.Td/r.T[n])*r.v[:,:,n]
+    kineticenergy!(r,n)
 end
 
 ################################################################################
@@ -29,6 +30,7 @@ function relaxaggresively!( r::MolecularDynamicsTrial, n::Int64, mult::Float64 )
         Td = r.Td / mult
     end
     r.v[:,:,n] = sqrt(Td/r.T[n])*r.v[:,:,n]
+    kineticenergy!(r,n)
 end
 
 ################################################################################
