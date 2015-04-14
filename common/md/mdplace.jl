@@ -12,6 +12,7 @@ function mdplace!( r::MolecularDynamicsTrial, index::MolecularDynamicsIndex )
     gridUnit = r.L / gridNotches;
 
     # Iterate through the bodies and lay them down in neat little rows
+    println("On step 1\nPlacing particles")
     for i in 1:r.numBodies
         num = i - 1; # Because Julia and MATLAB start at 1, not 0
 
@@ -26,8 +27,8 @@ function mdplace!( r::MolecularDynamicsTrial, index::MolecularDynamicsIndex )
 
     # Calculate energies for 1st step
     index!( r.y[:,:,1], index, r.L )
+    potentialenergyandforce!( r, 1, index.pairs )
     kineticenergy!( r, 1 )
-    potentialenergyandforce!( r, 1 )
     r.e[1] = r.ket[1] + r.pet[1]
 
     # Particles are now placed, so say we are on step 1

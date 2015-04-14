@@ -18,20 +18,22 @@ function verlet!(
         index::MolecularDynamicsIndex )
     r.currentStep = n-1
     for i in r.currentStep:(m-1)
+        println("Starting step ",r.currentStep+1,".")
         index!( r.y[:,:,i], index, r.L )
         r.y[:,:,i+1] = (r.y[:,:,i] + r.v[:,:,i]r.dx + 0.5r.f[:,:,i]r.dx^2) % r.L
-        potentialenergyandforce!( r, i+1 )
+        potentialenergyandforce!( r, i+1, index.pairs )
         r.v[:,:,i+1] = r.v[:,:,i] + 0.5r.f[:,:,i]r.dx + 0.5r.f[:,:,i+1]r.dx
         kineticenergy!( r, i+1 )
         r.e[i+1] = r.ket[i+1] + r.pet[i+1]
         r.currentStep+=1
+        println("Finished step ",r.currentStep,".")
     end
 end
 
 ################################################################################
 #   Run the Verlet algorithm for another n steps, or until finished
 ################################################################################
-function verlet!( r::MolecularDynamicsTrial, n::Int, i::MolecularDynamicsIndex )
+function verlet!(r::MolecularDynamicsTrial, n::Int64, i::MolecularDynamicsIndex)
     start = r.currentStep + 1                       # left off on currentStep
     stop = min( r.currentStep + n, r.steps )        # calculate another n steps
     verlet!( r, start, stop, i )

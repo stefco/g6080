@@ -22,7 +22,7 @@ MolecularDynamicsIndex( δ, λ ) =
         Array(Array{Int64,1},0,0,0),
         δ,
         λ,
-        1 )
+        10 )
 
 ################################################################################
 #
@@ -61,17 +61,20 @@ end
 ################################################################################
 function index!( y::Array{Float64, 2}, i::MolecularDynamicsIndex, l::Float64 )
     if i.Λ == i.λ
+        print("Rebuilding the index... ")
         δsq = i.δ^2
-        i.pairs = Array( ( Int64, Int64 ), 0 )
-        for j in size(y)[2]
-            for k in size(y)[2]
+        i.pairs = Array((Int64,Int64),0)
+        for j in 1:size(y)[2]
+            for k in 1:size(y)[2]
                 if j == k
                     continue
                 else
-                    Δr⃗ = Δ( y[:,j], y[:,k], l )
-                    if δsq >= dot( Δr⃗, Δr⃗ )
+                    Δr⃗ = Δ(y[:,j],y[:,k],l)
+                    if δsq >= dot(Δr⃗,Δr⃗)
                         push!( i.pairs, (j,k) )
-    end; end; end; end; end
+        end; end; end; end
+        println("done.")
+    end
     i.Λ = ( i.Λ % i.λ ) + 1
 end
 
@@ -95,7 +98,9 @@ end
 #
 ################################################################################
 function potentialenergyandforce!(
-        r::MolecularDynamicsTrial, n::Int, pairs::Array{(Int64,Int64),1} )
+        r::MolecularDynamicsTrial, n::Int64, pairs::Array{(Int64,Int64),1} )
+    print("Calculating potential energies... ")
+    Δr⃗,rsq,Δf⃗ = zeros(3),0.0,zeros(3)
     for pair in pairs
         Δr⃗ = Δ( r.y[:,pair[1],n], r.y[:,pair[2],n], r.L )
         rsq = dot( Δr⃗, Δr⃗ )
@@ -106,6 +111,7 @@ function potentialenergyandforce!(
     end
     r.pet[n] = sum( r.pe[:,n] )
     r.vir /= 2
+    println("done.")
 end
 
 ################################################################################
@@ -119,10 +125,12 @@ end
 #       3) Use KEtotal to find the temperature, T
 #
 ################################################################################
-function kineticenergy!( r::MolecularDynamicsTrial, n::Int )
+function kineticenergy!( r::MolecularDynamicsTrial, n::Int64 )
+    print("Calculating kinetic energies... ")
     for i=1:r.numBodies
         r.ke[i,n] = 24dot( r.v[:,i,n], r.v[:,i,n] )
     end
     r.ket[n] = sum( r.ke[:,n] )
     r.T[n] = (2/3)r.ket[n] / r.numBodies
+    println("done.")
 end
