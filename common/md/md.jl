@@ -3,3 +3,4 @@ include("mdenergies.jl")                        # energies and index
 include("mdplace.jl")                           # initial placement
 include("mdverlet.jl")                          # Verlet algorithm
 include("mdio.jl")                              # save and load
+include("mdrelax.jl")                           # relax temperature
