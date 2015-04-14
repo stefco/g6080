@@ -27,7 +27,7 @@ verlet!(q, 199, index)
 save("set02/q2/q200", q)
 
 # Relax
-relax!(p)
+relax!(q)
 
 # Save the relaxed trial
 save("set02/q2/q200r", q)

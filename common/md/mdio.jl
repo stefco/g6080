@@ -16,7 +16,7 @@ end
 function save( filename::String, r::MolecularDynamicsTrial )
     fileid = HDF5.h5open( filename, "w" )               # open, overwrite
     for field in names( MolecularDynamicsTrial )        # save all fields
-        fileid[ string( field ) ] = p.( field )
+        fileid[ string( field ) ] = r.( field )
     end
     close( fileid )                                     # close and save file
 end
