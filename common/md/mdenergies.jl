@@ -1,17 +1,78 @@
 ################################################################################
 #
-#   Function for finding the shortest vector twixt two points
+#   Type for keeping track of nearby pairs
 #
 ################################################################################
-function Δ( p2::Array{Real,1}, p1::Array{Real,1}, l::Real )
-    # Calculate minimum squared distance, accounting for periodicity of the
-    # containing box.
+type MolecularDynamicsIndex
+    pairs::Array{(Int64,Int64),1}               # tuple vector of nearby pairs
+    cells::Array{Array{Int64,1},3}              # grid containers for particles
+    δ::Float64                                  # max distance worth including
+    λ::Int64                                    # steps before index regen
+    Λ::Int64                                    # current step
+end
+
+################################################################################
+#
+#   Convenience constructor for MolecularDynamicsIndex
+#
+################################################################################
+MolecularDynamicsIndex( δ, λ ) =
+    MolecularDynamicsIndex( 
+        Array((Int64,Int64),0),
+        Array(Array{Int64,1},0,0,0),
+        δ,
+        λ,
+        1 )
+
+################################################################################
+#
+#   Function for finding the shortest vector twixt two points
+#   
+#       Calculate minimum squared distance, accounting for periodicity of the
+#       containing box.
+#
+################################################################################
+function Δ( p2::Array{Float64,1}, p1::Array{Float64,1}, l::Float64 )
     Δp=p2-p1-l
     for i in 1:3
         abs(Δp[i]+l)<abs(Δp[i])&&(Δp[i]+=l)
         abs(Δp[i]+l)<abs(Δp[i])&&(Δp[i]+=l)
     end
     return Δp
+end
+
+################################################################################
+#
+#   Simple function for finding nearby pairs
+#
+#       Iterates through all pairs and, if a pair is sufficiently close, adds
+#       it to the list of interacting pairs as a tuple of the particle indices.
+#
+#       1) If the index counter Λ has reached the planned index lifetime λ,
+#          rebuild the index.
+#       2) Find the square of the max interaction distance δ; call it δsq
+#       3) Clear the list of interacting pairs and reinitialize it as empty.
+#       4) Loop through all ordered pairs of particles (j,k), skipping j==k
+#       5) Find Δr⃗, the shortest distance between particles j and k
+#       6) If the squared magnitude of Δr⃗ is less that δsq, the particles are
+#          close enough to interact; push the tuple (j,k) into the pairs list.
+#       7) Increment Λ so that it rolls back to 1 on passing λ.
+#
+################################################################################
+function index!( y::Array{Float64, 2}, i::MolecularDynamicsIndex, l::Float64 )
+    if i.Λ == i.λ
+        δsq = i.δ^2
+        i.pairs = Array( ( Int64, Int64 ), 0 )
+        for j in size(y)[2]
+            for k in size(y)[2]
+                if j == k
+                    continue
+                else
+                    Δr⃗ = Δ( y[:,j], y[:,k], l )
+                    if δsq >= dot( Δr⃗, Δr⃗ )
+                        push!( i.pairs, (j,k) )
+    end; end; end; end; end
+    i.Λ = ( i.Λ % i.λ ) + 1
 end
 
 ################################################################################
@@ -33,8 +94,9 @@ end
 #       the contributions to it have been added in.
 #
 ################################################################################
-function potentialenergyandforce!( r::MolecularDynamicsTrial, n::Int )
-    for pair in interactionlist # TODO : where does interactionlist live?
+function potentialenergyandforce!(
+        r::MolecularDynamicsTrial, n::Int, pairs::Array{(Int64,Int64),1} )
+    for pair in pairs
         Δr⃗ = Δ( r.y[:,pair[1],n], r.y[:,pair[2],n], r.L )
         rsq = dot( Δr⃗, Δr⃗ )
         Δf⃗ = (rsq^-7 - 0.5rsq^-4)Δr⃗
