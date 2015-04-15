@@ -32,11 +32,15 @@ MolecularDynamicsIndex( δ, λ ) =
 #       containing box.
 #
 ################################################################################
-function Δ( p2::Array{Float64,1}, p1::Array{Float64,1}, l::Float64 )
-    Δp=p2-p1-l
+function Δ( p2::Array{Float64,1}, p1::Array{Float64,1}, l::Float64, Δp::Array{Float64,1} )
+    Δp=p2-p1
+    lo2=l÷2
     for i in 1:3
-        abs(Δp[i]+l)<abs(Δp[i])&&(Δp[i]+=l)
-        abs(Δp[i]+l)<abs(Δp[i])&&(Δp[i]+=l)
+        if Δp[i] > lo2
+            Δp[i] -= l
+        elseif Δp[i] < lo2
+            Δp[i] += l
+        end
     end
     return Δp
 end
@@ -73,7 +77,7 @@ function index!( y::Array{Float64, 2}, i::MolecularDynamicsIndex, l::Float64 )
                     if δsq >= dot(Δr⃗,Δr⃗)
                         push!( i.pairs, (j,k) )
         end; end; end; end
-        println("done.")
+        print("done. ")
     end
     i.Λ = ( i.Λ % i.λ ) + 1
 end
@@ -111,7 +115,35 @@ function potentialenergyandforce!(
     end
     r.pet[n] = sum( r.pe[:,n] )
     r.vir /= 2
-    println("done.")
+    print("done. ")
+end
+
+################################################################################
+#
+#   Calculate just PE and the virial
+#
+################################################################################
+import NumericExtensions
+function potentialenergy!( r::MolecularDynamicsTrial, n::Int64 )
+    m = r.numBodies
+    x = r.y[:,:,n]
+
+    x2 = NumericExtensions.sumsq(x,1)       # length of each column in x
+    Rn2 = x2 .+ reshape(x2,m,1)             # xi^2 +xj^2
+    gemm!('T', 'N', -2.0, x, x, 1.0, Rn2)   # add -2xi'xj to Rn2
+
+    Rn2 = 1 ./ Rn2                          # Rn2 = R^-2, hence the name
+    for i in 1:m                            # No self-interaction
+        Rn2[i,i] = 0.0
+    end
+    Rn6 = Rn2 .* Rn2 .* Rn2                 # Rn6 = R^-6
+
+    ΔPE = 4(Rn6 .* Rn6 - Rn6)                # Multiply by 4 after getting virial
+    Δvir = 0.25Rn6 + 0.125ΔPE                     # Virial contribution
+
+    r.pe[:,n] = sum(ΔPE,1)
+    r.pet[n] = sum(r.pe[:,n])
+    r.vir[n] = sum(Δvir)
 end
 
 ################################################################################
@@ -132,5 +164,5 @@ function kineticenergy!( r::MolecularDynamicsTrial, n::Int64 )
     end
     r.ket[n] = sum( r.ke[:,n] )
     r.T[n] = (2/3)r.ket[n] / r.numBodies
-    println("done.")
+    print("done. ")
 end

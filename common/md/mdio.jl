@@ -14,25 +14,29 @@ end
 
 # Save the trial using HDF5
 function save( filename::String, r::MolecularDynamicsTrial )
+    print("Saving trial as ",filename,"...")
     fileid = HDF5.h5open( filename, "w" )               # open, overwrite
-    for field in names( MolecularDynamicsTrial )        # save all fields
+    for field in names( MolecularDynamicsTrial )
         fileid[ string( field ) ] = r.( field )
     end
-    close( fileid )                                     # close and save file
+    close( fileid )
+    println(" done.")
 end
 
 # Load the trial using HDF5
 function load!( filename::String, r::MolecularDynamicsTrial )
+    print("Loading trial from ",filename,"...")
     fileid = HDF5.h5open( filename, "r" )               # open, read-only
-    for field in names( fileid )                        # populate fields
+    for field in names( fileid )
         r.( symbol( field ) ) = HDF5.read( fileid, field )
     end
-    close( fileid )                                     # close file
+    close( fileid )
+    println(" done.")
 end
 
 # Initialize and load a trial using HDF5
 function loadmdtrial( filename::String )
-    r = MolecularDynamicsTrial()                        # create new trial
-    load!( filename, r )                                # populate from save
+    r = MolecularDynamicsTrial()
+    load!( filename, r )
     return r
 end
