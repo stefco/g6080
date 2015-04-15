@@ -24,19 +24,19 @@ mdplace!(q, index);
 verlet!(q, 199, index)
 
 # Save the trial
-save("set02/q2/q200", q)
+save("set02/q2/q_auto", q)
 
 # Relax
 relax!(q)
 
 # Save the relaxed trial
-save("set02/q2/q200r", q)
+save("set02/q2/q_auto", q)
 
 # Thermalize
-thermalize("set02/q2/q", q, 50, 36, index)
+thermalize("set02/q2/q_auto", q, 50, 36, index)
 
 # Run for another 8000 steps
-verlet!(q, index)
-
-# Save
-save("set02/q2/qfinal",q)
+for i in 1:16
+    verlet!(q, 500, index)
+    save("set02/q2/q_auto", q)
+end

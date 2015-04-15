@@ -26,8 +26,8 @@ function mdplace!( r::MolecularDynamicsTrial, index::MolecularDynamicsIndex )
     end
 
     # Calculate energies for 1st step
-    index!( r.y[:,:,1], index, r.L )
-    potentialenergyandforce!( r, 1, index.pairs )
+    # index!( r.y[:,:,1], index, r.L )
+    potentialenergyandforce!( r, 1 )
     kineticenergy!( r, 1 )
     r.e[1] = r.ket[1] + r.pet[1]
 

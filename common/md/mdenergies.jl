@@ -1,3 +1,5 @@
+import NumericExtensions
+
 ################################################################################
 #
 #   Type for keeping track of nearby pairs
@@ -101,21 +103,32 @@ end
 #       the contributions to it have been added in.
 #
 ################################################################################
-function potentialenergyandforce!(
-        r::MolecularDynamicsTrial, n::Int64, pairs::Array{(Int64,Int64),1} )
-    print("Calculating potential energies... ")
-    Δr⃗,rsq,Δf⃗ = zeros(3),0.0,zeros(3)
-    for pair in pairs
-        Δr⃗ = Δ( r.y[:,pair[1],n], r.y[:,pair[2],n], r.L )
-        rsq = dot( Δr⃗, Δr⃗ )
-        Δf⃗ = (rsq^-7 - 0.5rsq^-4)Δr⃗
-        r.f[:,pair[1],n] += Δf⃗
-        r.pe[pair[1],n] += 4(rsq^-6 - rsq^-3)
-        r.vir += dot( Δr⃗, Δf⃗ )
+function potentialenergyandforce!( r::MolecularDynamicsTrial, n::Int64 )
+    m = r.numBodies
+    x = r.y[:,:,n]
+
+    ΔR⃗ = reshape(x,3,m) .- reshape(x,3,1,m) # All interatomic distances, aperiodic
+    ΔR⃗ *= (1/l)                             # Scale out box length and shift to
+    ΔR⃗ += 0.5                               # middle, so that 0 < ΔR⃗min < 1.
+    ΔR⃗ = mod(ΔR⃗,1)                          # Pick values that match this criterion.
+    ΔR⃗ -= 0.5                               # Shift values back into place, and
+    ΔR⃗ *= l                                 # scale them back up.
+
+    Rn2 = NumericExtensions.sumsq(ΔR⃗,1)     # All the minimum square distances;
+    Rn2 = 1 ./ Rn2                          # We will use Rn2 = R^-2, hence the name
+    for i in 1:m                            # Avoid infinite self-interactions
+        Rn2[1,i,i] = 0.0
     end
-    r.pet[n] = sum( r.pe[:,n] )
-    r.vir /= 2
-    print("done. ")
+    Rn6 = Rn2 .* Rn2 .* Rn2                 # Rn6 = Rn^-6, which will be handy
+
+    ΔPE = 4(Rn6 .* Rn6 - Rn6)
+    Δvir = 0.25Rn6 + 0.125ΔPE
+    Δf⃗ = 2Rn2 .* (Δvir .* ΔR⃗)
+
+    r.pe[:,n] = sum(ΔPE,2)
+    r.pet[n] = sum(r.pe[:,n])
+    r.vir[n] = sum(Δvir)
+    r.f[:,:,n] = sum(Δf⃗,3)
 end
 
 ################################################################################
@@ -123,7 +136,6 @@ end
 #   Calculate just PE and the virial
 #
 ################################################################################
-import NumericExtensions
 function potentialenergy!( r::MolecularDynamicsTrial, n::Int64 )
     m = r.numBodies
     x = r.y[:,:,n]

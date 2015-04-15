@@ -19,14 +19,13 @@ function verlet!(
     r.currentStep = n-1
     for i in r.currentStep:(m-1)
         print("START Verlet step ",r.currentStep+1,". ")
-        index!( r.y[:,:,i], index, r.L )
         r.y[:,:,i+1] = (r.y[:,:,i] + r.v[:,:,i]r.dx + 0.5r.f[:,:,i]r.dx^2) % r.L
-        potentialenergyandforce!( r, i+1, index.pairs )
+        potentialenergyandforce!( r, i+1 )
         r.v[:,:,i+1] = r.v[:,:,i] + 0.5r.f[:,:,i]r.dx + 0.5r.f[:,:,i+1]r.dx
         kineticenergy!( r, i+1 )
         r.e[i+1] = r.ket[i+1] + r.pet[i+1]
         r.currentStep+=1
-        println("DONE with step ",r.currentStep".")
+        println("DONE with step ",r.currentStep,".")
     end
 end
 
