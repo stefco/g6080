@@ -11,11 +11,7 @@
 #       4) next kinetic energy from next velocity
 #
 ################################################################################
-function verlet!(
-        r::MolecularDynamicsTrial,
-        n::Int64, 
-        m::Int64, 
-        index::MolecularDynamicsIndex )
+function verlet!( r::MolecularDynamicsTrial, n::Int64, m::Int64, )
     r.currentStep = n-1
     for i in r.currentStep:(m-1)
         print("START Verlet step ",r.currentStep+1,". ")
@@ -32,18 +28,18 @@ end
 ################################################################################
 #   Run the Verlet algorithm for another n steps, or until finished
 ################################################################################
-function verlet!(r::MolecularDynamicsTrial, n::Int64, i::MolecularDynamicsIndex)
+function verlet!(r::MolecularDynamicsTrial, n::Int64 )
     start = r.currentStep + 1                       # left off on currentStep
     stop = min( r.currentStep + n, r.steps )        # calculate another n steps
-    verlet!( r, start, stop, i )
+    verlet!( r, start, stop )
 end
 
 ################################################################################
 #   Run the Verlet algorithm until completion
 ################################################################################
-function verlet!( r::MolecularDynamicsTrial, i::MolecularDynamicsIndex )
+function verlet!( r::MolecularDynamicsTrial )
     start = r.currentStep + 1
     stop = r.steps
-    verlet!( r, start, stop, i )
+    verlet!( r, start, stop )
 end
 

@@ -105,6 +105,7 @@ end
 ################################################################################
 function potentialenergyandforce!( r::MolecularDynamicsTrial, n::Int64 )
     m = r.numBodies
+    l = r.L
     x = r.y[:,:,n]
 
     ΔR⃗ = reshape(x,3,m) .- reshape(x,3,1,m) # All interatomic distances, aperiodic

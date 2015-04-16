@@ -3,10 +3,10 @@
 include("md.jl");
 
 # Create a new simulation object
-q = MolecularDynamicsTrial(
+s = MolecularDynamicsTrial(
     1000,               # number of bodies
     0.75,               # particle density
-    1.304,              # desired temperature; also use 1.304
+    1.069,              # desired temperature; also use 1.304
     0.032,              # time step dx, in units of τ
     10000,              # number of iterations
     3.405e-10,          # length units, from Verlet, in m
@@ -18,25 +18,25 @@ q = MolecularDynamicsTrial(
 index = MolecularDynamicsIndex( 3, 10 )
 
 # Place the particles
-mdplace!(q, index);
+mdplace!(s, index);
 
 # Run for 199 steps to thermalize
-verlet!(q, 199, index)
+verlet!(s, 199, index)
 
 # Save the trial
-save("set02/q2/q_auto", q)
+save("set02/q2/s_auto", s)
 
 # Relax
-relax!(q)
+relax!(s)
 
 # Save the relaxed trial
-save("set02/q2/q_auto", q)
+save("set02/q2/s_auto", s)
 
 # Thermalize
-thermalize("set02/q2/q_auto", q, 50, 36, index)
+thermalize("set02/q2/s_auto", s, 50, 36, index)
 
 # Run for another 8000 steps
 for i in 1:16
-    verlet!(q, 500, index)
-    save("set02/q2/q_auto", q)
+    verlet!(s, 500, index)
+    save("set02/q2/s_auto", s)
 end
