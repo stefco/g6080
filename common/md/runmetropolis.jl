@@ -2,8 +2,11 @@
 
 include("md.jl");
 
+# Pick interaction distance
+δ = 0.1
+
 # Create a new simulation object
-s = MolecularDynamicsTrial(
+q = MolecularDynamicsTrial(
     1000,               # number of bodies
     0.75,               # particle density
     1.069,              # desired temperature; also use 1.304
@@ -12,28 +15,21 @@ s = MolecularDynamicsTrial(
     3.405e-10,          # length units, from Verlet, in m
     119.8,              # energy scale for potential, in Kelvin
     39.948 / 6.0221e26  # argon atomic mass, in kg
-    );      
+);      
 
 # Place the particles
-mdplace!(s, index);
+mdplace!(q);
 
-# Run for 199 steps to thermalize
-verlet!(s, 199)
+# Run for 199 steps
+metropolis!(q, 499, δ)
 
 # Save the trial
-save("set02/q2/s_auto", s)
+save("set04/q1/q.mdv", q)
 
-# Relax
-relax!(s)
+# WILL NEED TO ADD A THERMALIZE STEP BACK IN AT SOME POINT
 
-# Save the relaxed trial
-save("set02/q2/s_auto", s)
-
-# Thermalize
-thermalize("set02/q2/s_auto", s, 50, 36)
-
-# Run for another 8000 steps
-for i in 1:16
-    verlet!(s, 500)
-    save("set02/q2/s_auto", s)
+# Run for another 8000 steps, saving all the way
+for i in 1:19
+    metropolis!(q, 500, δ)
+    save("set04/q1/q.mdv", q)
 end

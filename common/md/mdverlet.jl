@@ -4,7 +4,7 @@
 #
 #   Rebuild the index before each step.
 #   
-#   Velocty Verlet works by calculating:
+#   Velocity Verlet works by calculating:
 #       1) next position from current velocity and acceleration
 #       2) next potential energy and force from next position
 #       3) next velocity from current AND next force

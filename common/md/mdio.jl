@@ -4,8 +4,20 @@ include("MolecularDynamicsTrial.jl")
 import JSON
 import HDF5
 
+# Check the filename to make sure it has a descriptive extension
+function mdcheckextension( filename::String, r::MDTrial )
+    r::Regex
+    if typeof(r) == MolecularDynamicsTrial
+        ex = r".mdv"                                    # a verlet trial
+    elseif typeof(r) == MDMetropolisTrial
+        ex = r".mdm"                                    # a metropolis trial
+    end
+    ismatch(ex, filename) || error("Needs descriptive extension: ", filename)
+end
+
 # Write the trial to JSON
-function writejson( filename::String, r::MolecularDynamicsTrial )
+function writejson( filename::String, r::MDTrial )
+    mdcheckextension(filename, r)
     isfile( filename ) && rm( filename )
     file = open( filename, "w" )
     write( file, JSON.json( r, 4 ) )
@@ -13,7 +25,8 @@ function writejson( filename::String, r::MolecularDynamicsTrial )
 end
 
 # Save the trial using HDF5
-function save( filename::String, r::MolecularDynamicsTrial )
+function save( filename::String, r::MDTrial )
+    mdcheckextension(filename, r)
     print("Saving trial as ",filename,"...")
     fileid = HDF5.h5open( filename, "w" )               # open, overwrite
     for field in names( MolecularDynamicsTrial )

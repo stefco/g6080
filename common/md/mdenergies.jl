@@ -139,22 +139,27 @@ end
 ################################################################################
 function potentialenergy!( r::MolecularDynamicsTrial, n::Int64 )
     m = r.numBodies
+    l = r.L
     x = r.y[:,:,n]
 
-    x2 = NumericExtensions.sumsq(x,1)       # length of each column in x
-    Rn2 = x2 .+ reshape(x2,m,1)             # xi^2 +xj^2
-    gemm!('T', 'N', -2.0, x, x, 1.0, Rn2)   # add -2xi'xj to Rn2
+    ΔR⃗ = reshape(x,3,m) .- reshape(x,3,1,m) # All interatomic distances, aperiodic
+    ΔR⃗ *= (1/l)                             # Scale out box length and shift to
+    ΔR⃗ += 0.5                               # middle, so that 0 < ΔR⃗min < 1.
+    ΔR⃗ = mod(ΔR⃗,1)                          # Pick values that match this criterion.
+    ΔR⃗ -= 0.5                               # Shift values back into place, and
+    ΔR⃗ *= l                                 # scale them back up.
 
-    Rn2 = 1 ./ Rn2                          # Rn2 = R^-2, hence the name
-    for i in 1:m                            # No self-interaction
-        Rn2[i,i] = 0.0
+    Rn2 = NumericExtensions.sumsq(ΔR⃗,1)     # All the minimum square distances;
+    Rn2 = 1 ./ Rn2                          # We will use Rn2 = R^-2, hence the name
+    for i in 1:m                            # Avoid infinite self-interactions
+        Rn2[1,i,i] = 0.0
     end
-    Rn6 = Rn2 .* Rn2 .* Rn2                 # Rn6 = R^-6
+    Rn6 = Rn2 .* Rn2 .* Rn2                 # Rn6 = Rn^-6, which will be handy
 
-    ΔPE = 4(Rn6 .* Rn6 - Rn6)                # Multiply by 4 after getting virial
-    Δvir = 0.25Rn6 + 0.125ΔPE                     # Virial contribution
+    ΔPE = 4(Rn6 .* Rn6 - Rn6)
+    Δvir = 0.25Rn6 + 0.125ΔPE
 
-    r.pe[:,n] = sum(ΔPE,1)
+    r.pe[:,n] = sum(ΔPE,2)
     r.pet[n] = sum(r.pe[:,n])
     r.vir[n] = sum(Δvir)
 end

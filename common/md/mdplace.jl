@@ -1,5 +1,5 @@
 # Fit particles to evenly spaced grid. There might be unused spots.
-function mdplace!( r::MolecularDynamicsTrial, index::MolecularDynamicsIndex )
+function mdplace!( r::MolecularDynamicsTrial )
     # Make sure this isn't a trial in progress
     if r.currentStep != 0
         error("Cannot place particles: currentStep = ", r.currentStep);
@@ -26,7 +26,6 @@ function mdplace!( r::MolecularDynamicsTrial, index::MolecularDynamicsIndex )
     end
 
     # Calculate energies for 1st step
-    # index!( r.y[:,:,1], index, r.L )
     potentialenergyandforce!( r, 1 )
     kineticenergy!( r, 1 )
     r.e[1] = r.ket[1] + r.pet[1]

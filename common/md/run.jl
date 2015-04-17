@@ -14,14 +14,11 @@ q = MolecularDynamicsTrial(
     39.948 / 6.0221e26  # argon atomic mass, in kg
     );      
 
-# Create a new index object
-index = MolecularDynamicsIndex( 3, 10 )
-
 # Place the particles
-mdplace!(q, index);
+mdplace!(q);
 
 # Run for 199 steps to thermalize
-verlet!(q, 199, index)
+verlet!(q, 199)
 
 # Save the trial
 save("set02/q2/q_auto", q)
@@ -33,10 +30,10 @@ relax!(q)
 save("set02/q2/q_auto", q)
 
 # Thermalize
-thermalize("set02/q2/q_auto", q, 50, 36, index)
+thermalize("set02/q2/q_auto", q, 50, 36)
 
 # Run for another 8000 steps
 for i in 1:16
-    verlet!(q, 500, index)
+    verlet!(q, 500)
     save("set02/q2/q_auto", q)
 end

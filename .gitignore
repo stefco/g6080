@@ -1,4 +1,6 @@
 *~
+*.mdv
+*.mdm
 *.pdf
 *.swp
 *.swo
