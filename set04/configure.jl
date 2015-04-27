@@ -1,15 +1,17 @@
 include("cluster.jl")
 
-Nx = Ny = 16
-@show steps = 2000
+Nx = Ny = 128
+@show steps = 40000
 
 Jc = 0.4406868                              # critical temp reduced coupling const
 J = 1.0                                     # coupling constant in Kelvin
-Tc = J/Jc                                   # critical temperature
+Tc = J/Jc                                   # critical temperature in Kelvin
 println("Critical temperature Tc = $Tc")
 
-Ts = [2.2:0.01:2.3]
-Bs = [0.0001, 0.001, 0.01]                     # magnetic field
+# 17 distinct temperatures
+Ts = [0.5, 1.0, 1.25, 1.5:0.1:2.2, 2.22, 2.24, 2.26, 2.265, 2.27]
+# magnetic fields
+Bs = [0.00001, 0.0001]
 
 Tvals = [0.001:0.001:2.269]
 Mvals = M(Tvals, J)
@@ -28,7 +30,7 @@ println("done.")
         x=Tvals, y=Mvals, Gadfly.Geom.line,
         color=["Predicted magnetization"]),
     Gadfly.Guide.xlabel("Temperature"),
-    Gadfly.Guide.ylabel("Mean normalized magnetization"), 
+    Gadfly.Guide.ylabel("Mean normalized absolute magnetization"), 
     Gadfly.Guide.title("Magnetization vs. Temperature for B=$(Bs[b])")
 )
 

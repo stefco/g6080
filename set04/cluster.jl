@@ -59,9 +59,9 @@ end
 function cluster(Nx::Int64, Ny::Int64, steps::Int64, J::Float64, B::Float64, T::Float64)
 
     print("Finding normalized magnetization for J=$J, B=$B, T=$T... ")
-    p = 0.46 # 1-exp(-2J/T)
+    p = 1-exp(-2J/T)
     A = SpinArray(Nx, Ny)
-    A.Eold = interactionenergy(A.σ, J) + magneticenergy(A.σ, B)
+    A.Eold = magneticenergy(A.σ, B) # + interactionenergy(A.σ, J) 
     Δσ = zeros(A.σ)                             # proposed spins
     magnetizations = zeros(steps)
     accepts = 0
@@ -82,11 +82,11 @@ function cluster(Nx::Int64, Ny::Int64, steps::Int64, J::Float64, B::Float64, T::
     
         # propose flip
         flips = flip!(x, y, A, Δσ, flips, p)
-        showspins(Δσ)
+        # showspins(Δσ)
 
         # calculate energies; ΔE = (Eint + Emag) - Eold
-        Enew = interactionenergy(Δσ, J)
-        Enew += magneticenergy(Δσ, B)
+        # Enew = interactionenergy(Δσ, J) # apparently shouldn't have this...
+        Enew = magneticenergy(Δσ, B)
         ΔE = Enew - A.Eold
         Pacc = exp(-ΔE/T)  
             
@@ -94,7 +94,7 @@ function cluster(Nx::Int64, Ny::Int64, steps::Int64, J::Float64, B::Float64, T::
         if rand() < Pacc
             A.σ[:] = Δσ[:]
             A.Eold = Enew
-            println("Accepted step $n")
+            # println("Accepted step $n")
             accepts += 1
         end
 
