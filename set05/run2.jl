@@ -18,7 +18,7 @@ function q2(N::Integer, μs::Array)
     Δe = Laplacian.deltaeff(Δf, β)
 
     # First guess should be zero for boundary points
-    b0 = ones(Int64,(N+1)^2) .* (1 .- β)  / (N+1 - sum(β))
+    b0 = ones(Int64,(N+1)^2) .* (1 .- β)  / sum(1.-β)^2
 
     # Compute Bμ (in parallel, of course)
     Bs = Array(Float64, length(μs))
@@ -28,7 +28,8 @@ function q2(N::Integer, μs::Array)
         A = p2.invit(Δe, μs[i], β)
 
         # Grip it and rip it
-        Bs[i] = norm(ConjugateGradient.conjgrad(A, b0))
+        b = ConjugateGradient.conjgrad(A, b0)
+        Bs[i] = dot(b,b)
     end
 
     # return the B values
