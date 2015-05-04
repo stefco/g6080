@@ -18,7 +18,7 @@ function q2(N::Integer, μs::Array)
     Δe = Laplacian.deltaeff(Δf, β)
 
     # First guess should be zero for boundary points
-    b0 = ones(Int64,(N+1)^2) .* (1 .- β)  / sum(1.-β)^2
+    b0 = ones(Int64,(N+1)^2) .* (1 .- β)  / √sum(1.-β)
 
     # Compute Bμ (in parallel, of course)
     Bs = Array(Float64, length(μs))
