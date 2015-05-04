@@ -16,13 +16,13 @@ kronecker = δ
 # Create a laplacian matrix with specified grid size and grid divisions
 function lap(N::Integer, L::Real)
 
-    Nsq = N*N                       # have N^2 grid points
-    a = 4.0δ(i->i, j->j, Nsq)
-    a -= δ(i->mod1(i+1, Nsq), j->j, Nsq)
-    a -= δ(i->mod1(i-1, Nsq), j->j, Nsq)
-    a -= δ(i->mod1(i+N, Nsq), j->j, Nsq)
-    a -= δ(i->mod1(i-N, Nsq), j->j, Nsq)
-    return a * (Nsq / (L*L))
+    Np1sq = (N+1)*(N+1)                 # have (N+1)^2 grid points
+    a = -4.0δ(i->i, j->j, Np1sq)
+    a += δ(i->mod1(i+1, Np1sq), j->j, Np1sq)
+    a += δ(i->mod1(i-1, Np1sq), j->j, Np1sq)
+    a += δ(i->mod1(i+N+1, Np1sq), j->j, Np1sq)
+    a += δ(i->mod1(i-N-1, Np1sq), j->j, Np1sq)
+    return a * (N*N / (L*L))
 
 end
 
@@ -30,9 +30,9 @@ lap(N::Integer) = lap(N,1)
 
 # Split a laplacian matrix into free and boundary parts
 function opsplit(A::Array, β::Array{Int,1})
-    
+
     ndims(A) == 2 || error("operator matrix must be 2-d")
-    length(β) == length(A) || error("more boundary conditions than parameters")
+    length(β) == size(A)[1] || error("specify which indices are boundary conditions")
     size(A)[1] == size(A)[2] || error("operator matrix must be square")
 
     B = zeros(size(A))
@@ -46,8 +46,13 @@ function opsplit(A::Array, β::Array{Int,1})
 end
 
 # β[i] = 1 iff ϕ[i] is a boundary condition
-function rhoeff(ρ::Array, Δ::Array, ϕ::Array, β::Array{Int,2})
-    return (r + Δ*ϕ) .* (1 .- β)
+function rhoeff(ρ::Array, Δb::Array, ϕb::Array, β::Array{Int,1})
+    return (ρ + Δb*ϕb) .* (1 .- β)
+end
+
+# Cancel out bound rows to get Δeffective
+function deltaeff(Δf, β::Array{Int,1})
+    return Δf .* (1 .- β)
 end
 
 end

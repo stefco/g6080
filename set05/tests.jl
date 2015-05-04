@@ -1,19 +1,8 @@
 import Laplacian
-
-# Test cycle
-println("Testing `cycle`")
-a = [1 2 3; 4 5 6; 7 8 9];
-@assert Laplacian.cycle(a, 1, 2) == [2 3 1; 5 6 4; 8 9 7] "r(n) -> r(n+1) fail"
-@assert Laplacian.cycle(a,-2, 2) == [2 3 1; 5 6 4; 8 9 7] "r(n) -> r(n-2) fail"
-@assert Laplacian.cycle(a,-1, 2) == [3 1 2; 6 4 5; 9 7 8] "r(n) -> r(n-1) fail"
-@assert Laplacian.cycle(a, 2, 2) == [3 1 2; 6 4 5; 9 7 8] "r(n) -> r(n+2) fail"
-@assert Laplacian.cycle(a, 1, 1) == [4 5 6; 7 8 9; 1 2 3] "c(n) -> c(n+1) fail"
-@assert Laplacian.cycle(a,-2, 1) == [4 5 6; 7 8 9; 1 2 3] "c(n) -> c(n-2) fail"
-@assert Laplacian.cycle(a,-1, 1) == [7 8 9; 1 2 3; 4 5 6] "c(n) -> c(n-1) fail"
-@assert Laplacian.cycle(a, 2, 1) == [7 8 9; 1 2 3; 4 5 6] "c(n) -> c(n+2) fail"
-println("`cycle` passed tests.")
+import ConjugateGradient
 
 # Test delta
+a = [1 2 3; 4 5 6; 7 8 9];
 println("Testing `δ`")
 @assert Laplacian.δ(i->i,j->j,3) * a == a "identity matrix operational fail"
 @assert Laplacian.δ(i->i,j->j,10) == eye(10,10) "identity matrix equality fail"
@@ -22,5 +11,16 @@ println("`δ` passed tests.")
 
 # Test opsplit
 println("Testing `opsplit`")
-@assert Laplacian.opsplit(a, [2]) == ([1 0 3; 4 0 6; 7 0 9], [0 2 0; 0 5 0; 0 8 0]) "split fail"
+@assert Laplacian.opsplit(a, [0,1,0]) == ([1 0 3; 4 0 6; 7 0 9], [0 2 0; 0 5 0; 0 8 0]) "split fail"
 println("`opsplit` passed tests")
+
+# Test conjgrad
+println("Testing `conjgrad`")
+c = [1 2 3; 2 4 5; 3 5 6]
+for i in 1:3
+    x = rand(3)
+    b = c*x
+    xx = ConjugateGradient.conjgrad(c,b)
+    @assert dot(xx-x, xx-x) < 1e-10 "inaccurate conjugate gradient"
+end
+println("`conjgrad` passed tests")
