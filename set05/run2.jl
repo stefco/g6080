@@ -25,7 +25,7 @@ function q2(N::Integer, μs::Array)
     @sync @parallel for i in 1:length(μs)
         # Inverse iteration matrix A
         println("On μ = $(μs[i])")
-        A = p2.invit(Δe, μs[i], β)
+        A = p2.invit(-5Δe, μs[i], β)
 
         # Grip it and rip it
         b = ConjugateGradient.conjgrad(A, b0)
@@ -36,6 +36,36 @@ function q2(N::Integer, μs::Array)
     return Bs, Δe
 
 end
+
+# Find eigenvectors corresponding to our eigenvalues
+function q2vectors(N::Integer, μ::Float64)
+
+    # Boundary conditions as matrices
+    Ψb, B = p2.boundaryconditions2(N)
+
+    # Reshape conditions into vectors
+    ψb = reshape(Ψb, (N+1)^2)
+    β  = reshape(B,  (N+1)^2)
+
+    # Laplacian matrix
+    Δ = Laplacian.lap(N)
+    Δf, Δb = Laplacian.opsplit(Δ, β)
+    Δe = Laplacian.deltaeff(Δf, β)
+
+    # First guess should be zero for boundary points
+    ψ0 = ones(Int64,(N+1)^2) .* (1 .- β)  / √sum(1.-β)
+
+    # Grip it and rip it; calculate ϕfree, use it to find total ψ
+    A = p2.invit(-5Δe, μ, β)
+    ψf = ConjugateGradient.conjgrad(A, ψ0)
+    ψf /= norm(ψf)
+    ψ = β.*ψb + (1.-β).*ψf
+
+    # Reshape ψ to give the physical grid and return that value
+    return reshape(ψ, N+1, N+1)
+
+end
+
 
 # Return X, Y, and Z coordinates of ϕ gridi matrix, assuming 1×1 grid size
 function xyzcoords(ϕ)

@@ -7,7 +7,7 @@ function q1(N::Integer)
 
     # Boundary conditions as matrices
     Vb, B = p1.boundaryconditions1(N)
-    @show r = p1.chargedensity1(N)
+    r = p1.chargedensity1(N)
 
     # Reshape conditions into vectors
     ϕb = reshape(Vb, (N+1)^2)

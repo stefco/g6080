@@ -28,7 +28,7 @@ end
 
 # Create the inverse iteration matrix, A = Δ - μI, of size N
 function invit(Δ::Array, μ::Real, β::Array)
-    return -5Δ - μ .* eye(size(Δ)[1]) .* ((1.-β)*(1.-β)')
+    return Δ - μ .* eye(size(Δ)[1]) .* ((1.-β)*(1.-β)')
 end
 
 end
