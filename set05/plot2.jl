@@ -2,12 +2,12 @@ include("run2.jl")
 import Gadfly
 Gadfly.set_default_plot_size(20Gadfly.cm, 12Gadfly.cm)
 
-intrvl = {
+intrvl = Any[
     (1,1,600),
     (153,0.01,154),
     (272,0.01,273),
     (368,0.01,369)
-}
+]
 
 # generate data for the plots on given intervals and save it to disk
 function data2(intrvl)

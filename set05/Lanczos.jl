@@ -10,12 +10,13 @@ function lanczos(A,v1,steps)
     r = v1
     b = 1
 
-    T = Array(Float64,steps+1,steps+1)      # Lanczos matrix
-    K = Array(Float64,size(A)[1],steps+1)   # vectors in Krylov space
+    T = zeros(Float64,steps+1,steps+1)      # Lanczos matrix
+    K = zeros(Float64,size(A)[1],steps+1)   # vectors in Krylov space
 
     # First round
     vold = v
     v = r/b
+    K[:,1] = v
     Av = A*v
     a = v∘Av
     T[1,1] = a
@@ -27,6 +28,7 @@ function lanczos(A,v1,steps)
         T[i,i+1] = T[i+1,i] = b
         vold = v
         v = r/b                     # next v
+        K[:,i+1] = v                # store vector
         Av = A*v
         a = v∘Av
         T[i+1,i+1] = a

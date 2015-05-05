@@ -2,7 +2,7 @@ import Laplacian
 import ConjugateGradient
 import p2
 
-# Run question 1 with grid size N
+# Run question 2 with grid size N
 function q2(N::Integer, μs::Array)
 
     # Boundary conditions as matrices
