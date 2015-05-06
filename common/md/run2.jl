@@ -15,22 +15,13 @@ s = MolecularDynamicsTrial(
     );      
 
 # Place the particles
-mdplace!(s, index);
+mdplace!(s);
 
 # Run for 199 steps to thermalize
 verlet!(s, 199)
 
-# Save the trial
-save("set02/q2/s_auto", s)
-
 # Relax
 relax!(s)
-
-# Save the relaxed trial
-save("set02/q2/s_auto", s)
-
-# Thermalize
-thermalize("set02/q2/s_auto", s, 50, 36)
 
 # Run for another 8000 steps
 for i in 1:16

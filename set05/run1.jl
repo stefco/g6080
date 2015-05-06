@@ -20,7 +20,7 @@ function q1(N::Integer)
     Δe = Laplacian.deltaeff(Δf, β)
 
     # Effective charge density
-    @show ρe = Laplacian.rhoeff(ρ, Δb, ϕb, β)
+    ρe = Laplacian.rhoeff(ρ, Δb, ϕb, β)
 
     # Grip it and rip it; calculate ϕfree, use it to find total ϕ
     ϕf = ConjugateGradient.conjgrad(Δe, -ρe)

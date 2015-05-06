@@ -37,6 +37,20 @@ function flip!(x::Int64, y::Int64, A::SpinArray, Δσ::Array{Int64,2}, flips::In
     return flips
 end
 
+function spatialcorelator(spins::Array{Int64,2}, Δx::Int64, Δy::Int64)
+
+    Δx >= 0 || error("Δx must be nonnegative")
+    Δy >= 0 || error("Δy must be nonnegative")
+
+    shifted = spins
+    shifted = [shifted[:,(Δx+1):end]  shifted[:,(1:Δx)]]            # x shift
+    shifted = [shifted[(end-Δy+1):end,:]; shifted[1:(end-Δy),:]]    # y shift
+
+    shifted .*= spins                                   # spatial correlations
+    return mean(shifted)                                # ⟨σ(x⃗)σ(y⃗)⟩
+
+end
+
 # energies are -2J*∑s1*s2/T; sum them all up
 function interactionenergy(spins::Array{Int64,2}, J::Float64)
     interactions = 0
@@ -56,7 +70,7 @@ function magneticenergy(spins::Array{Int64,2}, B::Float64)
     return B * float(spin)
 end
 
-function cluster(Nx::Int64, Ny::Int64, steps::Int64, J::Float64, B::Float64, T::Float64)
+function cluster(Nx::Int64, Ny::Int64, steps::Int64, J::Float64, B::Float64, T::Float64, mcd::Int64)
 
     print("Finding normalized magnetization for J=$J, B=$B, T=$T... ")
     p = 1-exp(-2J/T)
@@ -68,6 +82,11 @@ function cluster(Nx::Int64, Ny::Int64, steps::Int64, J::Float64, B::Float64, T::
     Enew = 0.0
     ΔE = 0.0
     Pacc = 0.0
+    mcd == 0 ? (cor = false) : (cor = true)
+    if cor == true
+        naivecorrelators = zeros(Float64, mcd, steps)
+ ###       correlators =      zeros(Float64, steps)
+    end
     
     for n in 1:steps
 
@@ -98,14 +117,27 @@ function cluster(Nx::Int64, Ny::Int64, steps::Int64, J::Float64, B::Float64, T::
             accepts += 1
         end
 
+        # find naive correlator
+        for d in 1:mcd
+            naivecorrelators[d,n] += spatialcorelator(A.σ, d, 0)
+            naivecorrelators[d,n] += spatialcorelator(A.σ, 0, d)
+        end
+
         # get magnetization
         magnetizations[n] = magnetization(A)
         # n%100 == 0 && println("\tMagnetization for step $n: ",magnetizations[n])
     end
     
     println("done with ",(accepts/steps)," accept ratio.")
-    return magnetizations, accepts/steps
+    if cor == false
+        return magnetizations, accepts/steps
+    else
+        return magnetizations, accepts/steps, naivecorrelators ###, correlators
+    end
 end
+
+# for when you don't want the correlator
+cluster(Nx, Ny, steps, J, B, T) = cluster(Nx, Ny, steps, J, B, T, 0)
 
 function M(T,J)
     return (1 - (sinh(2J./T)).^-4).^(1/8)
@@ -127,4 +159,10 @@ function showspins(spins::Array{Int64,2})
         end
         println()
     end
+end
+
+function aoft(correlators::Array{Float64, 2})
+    l = size(correlators)[1]                # number of distance values used
+    D = [1:l]                               # distances between lattice points
+    return -D ./ log(abs(correlators))
 end
