@@ -25,9 +25,8 @@ print("Importing Gadfly... ")
 import Gadfly
 Gadfly.set_default_plot_size(20Gadfly.cm, 12Gadfly.cm)
 println("done.")
-
 # for plotting results
-function MeansvsT(means, b)
+function MeansvsT(means, b, desc::String)
 
     layers = Array(Gadfly.Layer,0);
     for n in 1:length(Ns)
@@ -37,7 +36,7 @@ function MeansvsT(means, b)
         layers = cat(1, layers, newlayer)
     end
 
-    Gadfly.plot(
+    return Gadfly.plot(
         layers,
         Gadfly.layer(
             x=Tvals, y=Mvals, Gadfly.Geom.line,
@@ -49,7 +48,7 @@ function MeansvsT(means, b)
         Gadfly.Guide.yticks(ticks=[0:0.1:1]),
         Gadfly.Guide.xlabel("Temperature"),
         Gadfly.Guide.ylabel("Mean normalized absolute magnetization"), 
-        Gadfly.Guide.title("Magnetization vs. Temperature for B=$(Bs[b]) at Different Lattice Sizes")
+        Gadfly.Guide.title("$desc vs. Temperature for B=$(Bs[b]) at Different Lattice Sizes")
     )
 end
 
@@ -76,3 +75,28 @@ end
         x=mags, color=["Magnetization"], 
         Gadfly.Geom.histogram(bincount=100, density=true), order=2)
 )
+
+# Make plots of the data
+absmeans = Array(Float64, length(Ts), length(Ns), length(Bs))
+absmeans[:,:,1] = readdlm("absmeans-1.0e-5.dat")
+absmeans[:,:,2] = readdlm("absmeans-0.0001.dat")
+absmeans[:,:,3] = readdlm("absmeans-0.001.dat")
+absmeans[:,:,4] = readdlm("absmeans-0.01.dat")
+absmeans[:,:,5] = readdlm("absmeans-0.1.dat")
+
+means = Array(Float64, length(Ts), length(Ns), length(Bs))
+means[:,:,1] = readdlm("means-1.0e-5.dat")
+means[:,:,2] = readdlm("means-0.0001.dat")
+means[:,:,3] = readdlm("means-0.001.dat")
+means[:,:,4] = readdlm("means-0.01.dat")
+means[:,:,5] = readdlm("means-0.1.dat")
+
+plots = Array(Gadfly.Plot, length(Bs))
+for i in 1:length(plots)
+    plots[i] = MeansvsT(means[:,:,i], i, "Magnetization")
+end
+
+absplots = Array(Gadfly.Plot, length(Bs))
+for i in 1:length(plots)
+    plots[i] = MeansvsT(absmeans[:,:,i], i, "Absolute Magnetization")
+end
