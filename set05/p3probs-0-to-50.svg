@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:gadfly="http://www.gadflyjl.org/ns"
+     version="1.2"
+     width="200mm" height="120mm" viewBox="0 0 200 120"
+     stroke="none"
+     fill="#000000"
+     stroke-width="0.3"
+     font-size="3.88"
+>
+<g class="plotroot xscalable yscalable" id="fig-222e3042c751419baec1c1789f301b9e-element-1">
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="none" id="fig-222e3042c751419baec1c1789f301b9e-element-2">
+    <text x="106.82" y="112" text-anchor="middle">Charge of Point Particle, q</text>
+  </g>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-222e3042c751419baec1c1789f301b9e-element-3">
+    <text x="20.63" y="104.39" text-anchor="middle">0</text>
+    <text x="55.11" y="104.39" text-anchor="middle">10</text>
+    <text x="89.58" y="104.39" text-anchor="middle">20</text>
+    <text x="124.05" y="104.39" text-anchor="middle">30</text>
+    <text x="158.53" y="104.39" text-anchor="middle">40</text>
+    <text x="193" y="104.39" text-anchor="middle">50</text>
+  </g>
+  <g clip-path="url(#fig-222e3042c751419baec1c1789f301b9e-element-5)" id="fig-222e3042c751419baec1c1789f301b9e-element-4">
+    <g pointer-events="visible" opacity="1" fill="none" stroke="none" class="guide background" id="fig-222e3042c751419baec1c1789f301b9e-element-6">
+      <rect x="18.63" y="12.61" width="176.37" height="88.1"/>
+    </g>
+    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-222e3042c751419baec1c1789f301b9e-element-7">
+      <path fill="none" d="M18.63,98.71 L 195 98.71"/>
+      <path fill="none" d="M18.63,81.89 L 195 81.89"/>
+      <path fill="none" d="M18.63,65.07 L 195 65.07"/>
+      <path fill="none" d="M18.63,48.25 L 195 48.25"/>
+      <path fill="none" d="M18.63,31.43 L 195 31.43"/>
+      <path fill="none" d="M18.63,14.61 L 195 14.61"/>
+    </g>
+    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-222e3042c751419baec1c1789f301b9e-element-8">
+      <path fill="none" d="M20.63,12.61 L 20.63 100.71"/>
+      <path fill="none" d="M55.11,12.61 L 55.11 100.71"/>
+      <path fill="none" d="M89.58,12.61 L 89.58 100.71"/>
+      <path fill="none" d="M124.05,12.61 L 124.05 100.71"/>
+      <path fill="none" d="M158.53,12.61 L 158.53 100.71"/>
+      <path fill="none" d="M193,12.61 L 193 100.71"/>
+    </g>
+    <g class="plotpanel" id="fig-222e3042c751419baec1c1789f301b9e-element-9">
+      <g class="geometry" id="fig-222e3042c751419baec1c1789f301b9e-element-10">
+        <g class="color_RGB{Float32}(0.0f0,0.74736935f0,1.0f0)" stroke="#FFFFFF" stroke-width="0.3" fill="#00BFFF" id="fig-222e3042c751419baec1c1789f301b9e-element-11">
+          <circle cx="20.63" cy="22.88" r="0.9"/>
+          <circle cx="27.53" cy="25.48" r="0.9"/>
+          <circle cx="34.42" cy="28.25" r="0.9"/>
+          <circle cx="41.32" cy="31.17" r="0.9"/>
+          <circle cx="48.21" cy="34.23" r="0.9"/>
+          <circle cx="55.11" cy="37.41" r="0.9"/>
+          <circle cx="62" cy="40.69" r="0.9"/>
+          <circle cx="68.89" cy="44.06" r="0.9"/>
+          <circle cx="75.79" cy="47.49" r="0.9"/>
+          <circle cx="82.68" cy="50.96" r="0.9"/>
+          <circle cx="89.58" cy="54.45" r="0.9"/>
+          <circle cx="96.47" cy="57.92" r="0.9"/>
+          <circle cx="103.37" cy="61.37" r="0.9"/>
+          <circle cx="110.26" cy="64.77" r="0.9"/>
+          <circle cx="117.16" cy="68.1" r="0.9"/>
+          <circle cx="124.05" cy="71.35" r="0.9"/>
+          <circle cx="130.95" cy="74.52" r="0.9"/>
+          <circle cx="137.84" cy="77.58" r="0.9"/>
+          <circle cx="144.74" cy="80.54" r="0.9"/>
+          <circle cx="151.63" cy="83.38" r="0.9"/>
+          <circle cx="158.53" cy="86.12" r="0.9"/>
+          <circle cx="165.42" cy="88.75" r="0.9"/>
+          <circle cx="172.32" cy="91.27" r="0.9"/>
+          <circle cx="179.21" cy="93.68" r="0.9"/>
+          <circle cx="186.11" cy="95.98" r="0.9"/>
+          <circle cx="193" cy="98.19" r="0.9"/>
+        </g>
+      </g>
+      <g stroke-width="0.3" fill="none" class="geometry" stroke="#00BFFF" id="fig-222e3042c751419baec1c1789f301b9e-element-12">
+        <path fill="none" d="M20.63,22.88 L 27.53 25.48 34.42 28.25 41.32 31.17 48.21 34.23 55.11 37.41 62 40.69 68.89 44.06 75.79 47.49 82.68 50.96 89.58 54.45 96.47 57.92 103.37 61.37 110.26 64.77 117.16 68.1 124.05 71.35 130.95 74.52 137.84 77.58 144.74 80.54 151.63 83.38 158.53 86.12 165.42 88.75 172.32 91.27 179.21 93.68 186.11 95.98 193 98.19"/>
+      </g>
+    </g>
+  </g>
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-222e3042c751419baec1c1789f301b9e-element-13">
+    <text x="17.63" y="98.71" text-anchor="end" dy="0.35em">0.4</text>
+    <text x="17.63" y="81.89" text-anchor="end" dy="0.35em">0.5</text>
+    <text x="17.63" y="65.07" text-anchor="end" dy="0.35em">0.6</text>
+    <text x="17.63" y="48.25" text-anchor="end" dy="0.35em">0.7</text>
+    <text x="17.63" y="31.43" text-anchor="end" dy="0.35em">0.8</text>
+    <text x="17.63" y="14.61" text-anchor="end" dy="0.35em">0.9</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="none" id="fig-222e3042c751419baec1c1789f301b9e-element-14">
+    <text x="8.81" y="54.66" text-anchor="middle" dy="0.35em" transform="rotate(-90, 8.81, 56.66)">ψ*ψ</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="none" id="fig-222e3042c751419baec1c1789f301b9e-element-15">
+    <text x="106.82" y="10.61" text-anchor="middle">Probability of Finding Particle in Bottom Half of Region vs. Charge of Point Particle</text>
+  </g>
+</g>
+<defs>
+<clipPath id="fig-222e3042c751419baec1c1789f301b9e-element-5">
+  <path d="M18.63,12.61 L 195 12.61 195 100.71 18.63 100.71" />
+</clipPath
+></defs>
+</svg>

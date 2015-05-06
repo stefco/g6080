@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:gadfly="http://www.gadflyjl.org/ns"
+     version="1.2"
+     width="200mm" height="120mm" viewBox="0 0 200 120"
+     stroke="none"
+     fill="#000000"
+     stroke-width="0.3"
+     font-size="3.88"
+>
+<g class="plotroot xscalable yscalable" id="fig-3c313bfbbc9644cd813bdcb553b2c024-element-1">
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="none" id="fig-3c313bfbbc9644cd813bdcb553b2c024-element-2">
+    <text x="108.49" y="112" text-anchor="middle">Charge of Point Particle, q</text>
+  </g>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-3c313bfbbc9644cd813bdcb553b2c024-element-3">
+    <text x="23.98" y="104.39" text-anchor="middle">36.50</text>
+    <text x="40.88" y="104.39" text-anchor="middle">36.55</text>
+    <text x="57.78" y="104.39" text-anchor="middle">36.60</text>
+    <text x="74.68" y="104.39" text-anchor="middle">36.65</text>
+    <text x="91.59" y="104.39" text-anchor="middle">36.70</text>
+    <text x="108.49" y="104.39" text-anchor="middle">36.75</text>
+    <text x="125.39" y="104.39" text-anchor="middle">36.80</text>
+    <text x="142.29" y="104.39" text-anchor="middle">36.85</text>
+    <text x="159.2" y="104.39" text-anchor="middle">36.90</text>
+    <text x="176.1" y="104.39" text-anchor="middle">36.95</text>
+    <text x="193" y="104.39" text-anchor="middle">37.00</text>
+  </g>
+  <g clip-path="url(#fig-3c313bfbbc9644cd813bdcb553b2c024-element-5)" id="fig-3c313bfbbc9644cd813bdcb553b2c024-element-4">
+    <g pointer-events="visible" opacity="1" fill="none" stroke="none" class="guide background" id="fig-3c313bfbbc9644cd813bdcb553b2c024-element-6">
+      <rect x="21.98" y="12.61" width="173.02" height="88.1"/>
+    </g>
+    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-3c313bfbbc9644cd813bdcb553b2c024-element-7">
+      <path fill="none" d="M21.98,98.72 L 195 98.72"/>
+      <path fill="none" d="M21.98,81.89 L 195 81.89"/>
+      <path fill="none" d="M21.98,65.07 L 195 65.07"/>
+      <path fill="none" d="M21.98,48.25 L 195 48.25"/>
+      <path fill="none" d="M21.98,31.43 L 195 31.43"/>
+      <path fill="none" d="M21.98,14.61 L 195 14.61"/>
+    </g>
+    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-3c313bfbbc9644cd813bdcb553b2c024-element-8">
+      <path fill="none" d="M23.98,12.61 L 23.98 100.71"/>
+      <path fill="none" d="M40.88,12.61 L 40.88 100.71"/>
+      <path fill="none" d="M57.78,12.61 L 57.78 100.71"/>
+      <path fill="none" d="M74.68,12.61 L 74.68 100.71"/>
+      <path fill="none" d="M91.59,12.61 L 91.59 100.71"/>
+      <path fill="none" d="M108.49,12.61 L 108.49 100.71"/>
+      <path fill="none" d="M125.39,12.61 L 125.39 100.71"/>
+      <path fill="none" d="M142.29,12.61 L 142.29 100.71"/>
+      <path fill="none" d="M159.2,12.61 L 159.2 100.71"/>
+      <path fill="none" d="M176.1,12.61 L 176.1 100.71"/>
+      <path fill="none" d="M193,12.61 L 193 100.71"/>
+    </g>
+    <g class="plotpanel" id="fig-3c313bfbbc9644cd813bdcb553b2c024-element-9">
+      <g class="geometry" id="fig-3c313bfbbc9644cd813bdcb553b2c024-element-10">
+        <g class="color_RGB{Float32}(0.0f0,0.74736935f0,1.0f0)" stroke="#FFFFFF" stroke-width="0.3" fill="#00BFFF" id="fig-3c313bfbbc9644cd813bdcb553b2c024-element-11">
+          <circle cx="23.98" cy="18.24" r="0.9"/>
+          <circle cx="27.36" cy="19.68" r="0.9"/>
+          <circle cx="30.74" cy="21.11" r="0.9"/>
+          <circle cx="34.12" cy="22.55" r="0.9"/>
+          <circle cx="37.5" cy="23.99" r="0.9"/>
+          <circle cx="40.88" cy="25.42" r="0.9"/>
+          <circle cx="44.26" cy="26.86" r="0.9"/>
+          <circle cx="47.64" cy="28.3" r="0.9"/>
+          <circle cx="51.02" cy="29.73" r="0.9"/>
+          <circle cx="54.4" cy="31.17" r="0.9"/>
+          <circle cx="57.78" cy="32.6" r="0.9"/>
+          <circle cx="61.16" cy="34.04" r="0.9"/>
+          <circle cx="64.54" cy="35.47" r="0.9"/>
+          <circle cx="67.92" cy="36.91" r="0.9"/>
+          <circle cx="71.3" cy="38.34" r="0.9"/>
+          <circle cx="74.68" cy="39.78" r="0.9"/>
+          <circle cx="78.07" cy="41.21" r="0.9"/>
+          <circle cx="81.45" cy="42.64" r="0.9"/>
+          <circle cx="84.83" cy="44.08" r="0.9"/>
+          <circle cx="88.21" cy="45.51" r="0.9"/>
+          <circle cx="91.59" cy="46.94" r="0.9"/>
+          <circle cx="94.97" cy="48.38" r="0.9"/>
+          <circle cx="98.35" cy="49.81" r="0.9"/>
+          <circle cx="101.73" cy="51.24" r="0.9"/>
+          <circle cx="105.11" cy="52.67" r="0.9"/>
+          <circle cx="108.49" cy="54.1" r="0.9"/>
+          <circle cx="111.87" cy="55.53" r="0.9"/>
+          <circle cx="115.25" cy="56.96" r="0.9"/>
+          <circle cx="118.63" cy="58.39" r="0.9"/>
+          <circle cx="122.01" cy="59.83" r="0.9"/>
+          <circle cx="125.39" cy="61.25" r="0.9"/>
+          <circle cx="128.77" cy="62.68" r="0.9"/>
+          <circle cx="132.15" cy="64.11" r="0.9"/>
+          <circle cx="135.53" cy="65.54" r="0.9"/>
+          <circle cx="138.91" cy="66.97" r="0.9"/>
+          <circle cx="142.29" cy="68.4" r="0.9"/>
+          <circle cx="145.67" cy="69.83" r="0.9"/>
+          <circle cx="149.05" cy="71.26" r="0.9"/>
+          <circle cx="152.43" cy="72.68" r="0.9"/>
+          <circle cx="155.82" cy="74.11" r="0.9"/>
+          <circle cx="159.2" cy="75.54" r="0.9"/>
+          <circle cx="162.58" cy="76.97" r="0.9"/>
+          <circle cx="165.96" cy="78.39" r="0.9"/>
+          <circle cx="169.34" cy="79.82" r="0.9"/>
+          <circle cx="172.72" cy="81.24" r="0.9"/>
+          <circle cx="176.1" cy="82.67" r="0.9"/>
+          <circle cx="179.48" cy="84.1" r="0.9"/>
+          <circle cx="182.86" cy="85.52" r="0.9"/>
+          <circle cx="186.24" cy="86.95" r="0.9"/>
+          <circle cx="189.62" cy="88.37" r="0.9"/>
+          <circle cx="193" cy="89.79" r="0.9"/>
+        </g>
+      </g>
+      <g stroke-width="0.3" fill="none" class="geometry" stroke="#00BFFF" id="fig-3c313bfbbc9644cd813bdcb553b2c024-element-12">
+        <path fill="none" d="M23.98,18.24 L 27.36 19.68 30.74 21.11 34.12 22.55 37.5 23.99 40.88 25.42 44.26 26.86 47.64 28.3 51.02 29.73 54.4 31.17 57.78 32.6 61.16 34.04 64.54 35.47 67.92 36.91 71.3 38.34 74.68 39.78 78.07 41.21 81.45 42.64 84.83 44.08 88.21 45.51 91.59 46.94 94.97 48.38 98.35 49.81 101.73 51.24 105.11 52.67 108.49 54.1 111.87 55.53 115.25 56.96 118.63 58.39 122.01 59.83 125.39 61.25 128.77 62.68 132.15 64.11 135.53 65.54 138.91 66.97 142.29 68.4 145.67 69.83 149.05 71.26 152.43 72.68 155.82 74.11 159.2 75.54 162.58 76.97 165.96 78.39 169.34 79.82 172.72 81.24 176.1 82.67 179.48 84.1 182.86 85.52 186.24 86.95 189.62 88.37 193 89.79"/>
+      </g>
+    </g>
+  </g>
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-3c313bfbbc9644cd813bdcb553b2c024-element-13">
+    <text x="20.98" y="98.72" text-anchor="end" dy="0.35em">0.499</text>
+    <text x="20.98" y="81.89" text-anchor="end" dy="0.35em">0.500</text>
+    <text x="20.98" y="65.07" text-anchor="end" dy="0.35em">0.501</text>
+    <text x="20.98" y="48.25" text-anchor="end" dy="0.35em">0.502</text>
+    <text x="20.98" y="31.43" text-anchor="end" dy="0.35em">0.503</text>
+    <text x="20.98" y="14.61" text-anchor="end" dy="0.35em">0.504</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="none" id="fig-3c313bfbbc9644cd813bdcb553b2c024-element-14">
+    <text x="8.81" y="54.66" text-anchor="middle" dy="0.35em" transform="rotate(-90, 8.81, 56.66)">ψ*ψ</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="none" id="fig-3c313bfbbc9644cd813bdcb553b2c024-element-15">
+    <text x="108.49" y="10.61" text-anchor="middle">Probability of Finding Particle in Bottom Half of Region vs. Charge of Point Particle</text>
+  </g>
+</g>
+<defs>
+<clipPath id="fig-3c313bfbbc9644cd813bdcb553b2c024-element-5">
+  <path d="M21.98,12.61 L 195 12.61 195 100.71 21.98 100.71" />
+</clipPath
+></defs>
+</svg>

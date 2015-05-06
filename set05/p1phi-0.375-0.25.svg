@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:gadfly="http://www.gadflyjl.org/ns"
+     version="1.2"
+     width="200mm" height="120mm" viewBox="0 0 200 120"
+     stroke="none"
+     fill="#000000"
+     stroke-width="0.3"
+     font-size="3.88"
+>
+<g class="plotroot xscalable yscalable" id="fig-46ecb020ebf84ed6a375ad79b5314d03-element-1">
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="none" id="fig-46ecb020ebf84ed6a375ad79b5314d03-element-2">
+    <text x="106.44" y="112" text-anchor="middle">Horizontal Divisions, N</text>
+  </g>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-46ecb020ebf84ed6a375ad79b5314d03-element-3">
+    <text x="19.87" y="104.39" text-anchor="middle">8</text>
+    <text x="44.6" y="104.39" text-anchor="middle">16</text>
+    <text x="69.34" y="104.39" text-anchor="middle">24</text>
+    <text x="94.07" y="104.39" text-anchor="middle">32</text>
+    <text x="118.8" y="104.39" text-anchor="middle">40</text>
+    <text x="143.53" y="104.39" text-anchor="middle">48</text>
+    <text x="168.27" y="104.39" text-anchor="middle">56</text>
+    <text x="193" y="104.39" text-anchor="middle">64</text>
+  </g>
+  <g clip-path="url(#fig-46ecb020ebf84ed6a375ad79b5314d03-element-5)" id="fig-46ecb020ebf84ed6a375ad79b5314d03-element-4">
+    <g pointer-events="visible" opacity="1" fill="none" stroke="none" class="guide background" id="fig-46ecb020ebf84ed6a375ad79b5314d03-element-6">
+      <rect x="17.87" y="12.61" width="177.13" height="88.1"/>
+    </g>
+    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-46ecb020ebf84ed6a375ad79b5314d03-element-7">
+      <path fill="none" d="M17.87,98.72 L 195 98.72"/>
+      <path fill="none" d="M17.87,70.68 L 195 70.68"/>
+      <path fill="none" d="M17.87,42.65 L 195 42.65"/>
+      <path fill="none" d="M17.87,14.61 L 195 14.61"/>
+    </g>
+    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-46ecb020ebf84ed6a375ad79b5314d03-element-8">
+      <path fill="none" d="M19.87,12.61 L 19.87 100.71"/>
+      <path fill="none" d="M44.6,12.61 L 44.6 100.71"/>
+      <path fill="none" d="M69.34,12.61 L 69.34 100.71"/>
+      <path fill="none" d="M94.07,12.61 L 94.07 100.71"/>
+      <path fill="none" d="M118.8,12.61 L 118.8 100.71"/>
+      <path fill="none" d="M143.53,12.61 L 143.53 100.71"/>
+      <path fill="none" d="M168.27,12.61 L 168.27 100.71"/>
+      <path fill="none" d="M193,12.61 L 193 100.71"/>
+    </g>
+    <g class="plotpanel" id="fig-46ecb020ebf84ed6a375ad79b5314d03-element-9">
+      <g class="geometry" id="fig-46ecb020ebf84ed6a375ad79b5314d03-element-10">
+        <g class="color_RGB{Float32}(0.0f0,0.74736935f0,1.0f0)" stroke="#FFFFFF" stroke-width="0.3" fill="#00BFFF" id="fig-46ecb020ebf84ed6a375ad79b5314d03-element-11">
+          <circle cx="19.87" cy="79.67" r="0.9"/>
+          <circle cx="44.6" cy="49.71" r="0.9"/>
+          <circle cx="69.34" cy="39.13" r="0.9"/>
+          <circle cx="94.07" cy="33.77" r="0.9"/>
+          <circle cx="118.8" cy="30.52" r="0.9"/>
+          <circle cx="143.53" cy="28.33" r="0.9"/>
+          <circle cx="168.27" cy="26.75" r="0.9"/>
+          <circle cx="193" cy="25.55" r="0.9"/>
+        </g>
+      </g>
+      <g stroke-width="0.3" fill="none" class="geometry" stroke="#00BFFF" id="fig-46ecb020ebf84ed6a375ad79b5314d03-element-12">
+        <path fill="none" d="M19.87,79.67 L 44.6 49.71 69.34 39.13 94.07 33.77 118.8 30.52 143.53 28.33 168.27 26.75 193 25.55"/>
+      </g>
+    </g>
+  </g>
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-46ecb020ebf84ed6a375ad79b5314d03-element-13">
+    <text x="16.87" y="98.72" text-anchor="end" dy="0.35em">4.0</text>
+    <text x="16.87" y="70.68" text-anchor="end" dy="0.35em">4.5</text>
+    <text x="16.87" y="42.65" text-anchor="end" dy="0.35em">5.0</text>
+    <text x="16.87" y="14.61" text-anchor="end" dy="0.35em">5.5</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="none" id="fig-46ecb020ebf84ed6a375ad79b5314d03-element-14">
+    <text x="9.85" y="56.66" text-anchor="end" dy="0.35em">ϕ</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="none" id="fig-46ecb020ebf84ed6a375ad79b5314d03-element-15">
+    <text x="106.44" y="10.61" text-anchor="middle">Magnitude of ϕ vs. Horizontal Grid Divisions at x = 0.375, y = 0.25</text>
+  </g>
+</g>
+<defs>
+<clipPath id="fig-46ecb020ebf84ed6a375ad79b5314d03-element-5">
+  <path d="M17.87,12.61 L 195 12.61 195 100.71 17.87 100.71" />
+</clipPath
+></defs>
+</svg>
