@@ -6,11 +6,11 @@ println("\nPart 3");
 println("\n\tCalculating the covariance matrix, Cmoldy:");
 
 # Calculate the mean values of each quantity
-mdavg = zeros(3);
-mdavg[1] = mean(md[:,1]);
-mdavg[2] = mean(md[:,2]);
-mdavg[3] = mean(md[:,3]);
+mdavg = zeros(N);
+for n in 1:N
+    mdavg[n] = mean(md[:,n]);
+end
 
 # Calculate the covariance
-D = md - ones(Mmd) * transpose(mdavg);
-Cmoldy = transpose(D) * D ./ Mmd;
+D = md - ones(lengthmd) * transpose(mdavg);
+Cmoldy = transpose(D) * D ./ lengthmd;
