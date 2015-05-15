@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:gadfly="http://www.gadflyjl.org/ns"
+     version="1.2"
+     width="200mm" height="120mm" viewBox="0 0 200 120"
+     stroke="none"
+     fill="#000000"
+     stroke-width="0.3"
+     font-size="3.88"
+>
+<g class="plotroot xscalable yscalable" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-1">
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="none" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-2">
+    <text x="90.04" y="112" text-anchor="middle">Wave Number (k)</text>
+  </g>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-3">
+    <text x="20.63" y="104.39" text-anchor="middle">150</text>
+    <text x="90.04" y="104.39" text-anchor="middle">200</text>
+    <text x="159.44" y="104.39" text-anchor="middle">250</text>
+  </g>
+  <g class="guide colorkey" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-4">
+    <g fill="#4C404B" font-size="2.82" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-5">
+      <text x="165.25" y="56.66" dy="0.35em" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-6" class="color_Transmission_Probability">Transmission Probability</text>
+      <text x="165.25" y="60.29" dy="0.35em" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-7" class="color_Reflection_Probability">Reflection Probability</text>
+    </g>
+    <g stroke="none" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-8">
+      <rect x="162.44" y="55.76" width="1.81" height="1.81" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-9" class="color_Transmission_Probability" fill="#00BFFF"/>
+      <rect x="162.44" y="59.38" width="1.81" height="1.81" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-10" class="color_Reflection_Probability" fill="#D4CA3A"/>
+    </g>
+    <g fill="#362A35" font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" stroke="none" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-11">
+      <text x="162.44" y="52.84" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-12">Color</text>
+    </g>
+  </g>
+  <g clip-path="url(#fig-9e58aae4cda944bea3bff05bfc329cf5-element-14)" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-13">
+    <g pointer-events="visible" opacity="1" fill="none" stroke="none" class="guide background" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-15">
+      <rect x="18.63" y="12.61" width="142.81" height="88.1" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-16"/>
+    </g>
+    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-17">
+      <path fill="none" d="M18.63,98.71 L 161.44 98.71" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-18"/>
+      <path fill="none" d="M18.63,56.66 L 161.44 56.66" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-19"/>
+      <path fill="none" d="M18.63,14.61 L 161.44 14.61" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-20"/>
+    </g>
+    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-21">
+      <path fill="none" d="M20.63,12.61 L 20.63 100.71" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-22"/>
+      <path fill="none" d="M90.04,12.61 L 90.04 100.71" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-23"/>
+      <path fill="none" d="M159.44,12.61 L 159.44 100.71" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-24"/>
+    </g>
+    <g class="plotpanel" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-25">
+      <g class="geometry" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-26">
+        <g class="color_Reflection_Probability" stroke="#FFFFFF" stroke-width="0.3" fill="#D4CA3A" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-27">
+          <circle cx="20.63" cy="98.71" r="0.9" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-28"/>
+          <circle cx="90.04" cy="98.71" r="0.9" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-29"/>
+          <circle cx="159.44" cy="98.71" r="0.9" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-30"/>
+        </g>
+      </g>
+      <g class="geometry" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-31">
+        <g class="color_Transmission_Probability" stroke="#FFFFFF" stroke-width="0.3" fill="#00BFFF" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-32">
+          <circle cx="20.63" cy="14.61" r="0.9" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-33"/>
+          <circle cx="90.04" cy="14.61" r="0.9" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-34"/>
+          <circle cx="159.44" cy="14.61" r="0.9" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-35"/>
+        </g>
+      </g>
+      <g stroke-width="0.3" fill="none" class="geometry color_Reflection_Probability" stroke="#D4CA3A" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-36">
+        <path fill="none" d="M20.63,98.71 L 90.04 98.71 159.44 98.71" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-37"/>
+      </g>
+      <g stroke-width="0.3" fill="none" class="geometry color_Transmission_Probability" stroke="#00BFFF" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-38">
+        <path fill="none" d="M20.63,14.61 L 90.04 14.61 159.44 14.61" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-39"/>
+      </g>
+    </g>
+  </g>
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-40">
+    <text x="17.63" y="98.71" text-anchor="end" dy="0.35em" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-41">0.0</text>
+    <text x="17.63" y="56.66" text-anchor="end" dy="0.35em" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-42">0.5</text>
+    <text x="17.63" y="14.61" text-anchor="end" dy="0.35em" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-43">1.0</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="none" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-44">
+    <text x="8.81" y="54.66" text-anchor="middle" dy="0.35em" transform="rotate(-90, 8.81, 56.66)" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-45">Probability</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="none" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-46">
+    <text x="90.04" y="10.61" text-anchor="middle" id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-47">Leakage probability through potential barrier vs. momentum of wave packet</text>
+  </g>
+</g>
+<defs>
+<clipPath id="fig-9e58aae4cda944bea3bff05bfc329cf5-element-14">
+  <path d="M18.63,12.61 L 161.44 12.61 161.44 100.71 18.63 100.71" />
+</clipPath
+></defs>
+</svg>
