@@ -4,7 +4,7 @@
 #
 ################################################################################
 function relax!( r::MolecularDynamicsTrial, n::Int64 )
-    r.v[:,:,n] = sqrt(r.Td/r.T[n])*r.v[:,:,n]
+    r.v[:,:,n] *= √(r.Td/mean(r.T[n-49:n]))         # most recent 50 temps
     kineticenergy!(r,n)
 end
 

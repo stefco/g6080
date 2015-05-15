@@ -5,7 +5,7 @@ function autocorrelation(M, v, a, ns)
         # Sum over M-n terms (v[i+n,a]-v̂[a])(v[i,a]-v̂[a]), divide by (M-n),
         #   is the same as taking the mean of those terms for i in [1:M-n].
         push!(correlations, mean(
-            ( v[(n+1):M,a] - v̄̂[a] ) .* ( v[1:(M-n),a] - v̄̂ [a] )
+            ( v[(n+1):M,a] - mean(v[:,a]) ) .* ( v[1:(M-n),a] - mean(v[:,a]) )
         ));
     end
     return correlations;
@@ -17,7 +17,7 @@ function τ(M, v, ncut);
 
     # Find autocorrelation times
     tau = Float64[];
-    ndatasets = size(v)[2];
+    ndims(v) == 1 ? ndatasets = 1 : ndatasets = size(v)[2];
     for a in [1:ndatasets]
         # Just sum over the normalized autocorrelations
         corra = autocorrelation(M, v, a, ns);

@@ -178,7 +178,7 @@ end
 function kineticenergy!( r::MolecularDynamicsTrial, n::Int64 )
     print("Calculating kinetic energies... ")
     for i=1:r.numBodies
-        r.ke[i,n] = 24dot( r.v[:,i,n], r.v[:,i,n] )
+        r.ke[i,n] = 0.5dot( r.v[:,i,n], r.v[:,i,n] )
     end
     r.ket[n] = sum( r.ke[:,n] )
     r.T[n] = (2/3)r.ket[n] / r.numBodies

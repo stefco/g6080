@@ -9,3 +9,4 @@ ĉ = transpose(D) * D ./ M;
 
 println("\n\tCalculating the normalized covariance matrix, ρ̂:");
 ρ̂ = ĉ ./ ( σ * transpose(σ) )
+writedlm("p6-covariance.dat", ρ̂)

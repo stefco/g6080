@@ -2,17 +2,19 @@
 
 include("md.jl");
 
+fname = "../../swp/1069_auto.mdv"
+
 # Create a new simulation object
 q = MolecularDynamicsTrial(
     1000,               # number of bodies
     0.75,               # particle density
     1.069,              # desired temperature; also use 1.304
     0.032,              # time step dx, in units of τ
-    10000,              # number of iterations
+    20000,              # number of iterations
     3.405e-10,          # length units, from Verlet, in m
     119.8,              # energy scale for potential, in Kelvin
     39.948 / 6.0221e26  # argon atomic mass, in kg
-    );      
+);      
 
 # Place the particles
 mdplace!(q);
@@ -21,19 +23,22 @@ mdplace!(q);
 verlet!(q, 199)
 
 # Save the trial
-save("set02/q2/q_auto", q)
+save(fname, q)
 
 # Relax
 relax!(q)
 
 # Save the relaxed trial
-save("set02/q2/q_auto", q)
+save(fname, q)
 
-# Thermalize
-thermalize("set02/q2/q_auto", q, 50, 36)
+# Thermalize and relax 19 more times
+thermalize(fname, q, 200, 19)
 
-# Run for another 8000 steps
-for i in 1:16
+# Run for another 16000 steps
+for i in 1:32
     verlet!(q, 500)
-    save("set02/q2/q_auto", q)
+    save(fname, q)
 end
+
+# Extract information
+extract("../../swp/set02", q, 10)

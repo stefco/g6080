@@ -142,6 +142,8 @@ function subtrial( r::MolecularDynamicsTrial, n::Int, m::Int )
         error( "first step must be less than final step" )
     elseif n < 1
         error( "Out of bounds: first step must be greater than or equal to 1")
+    elseif n > r.currentStep
+        error( "first step must be less than current step" )
     else
         steps = m - n + 1
         numBodies = r.numBodies
@@ -164,11 +166,12 @@ function subtrial( r::MolecularDynamicsTrial, n::Int, m::Int )
                 p.(field) = r.(field)
             end
         end
+        p.currentStep = r.currentStep + 1 - n
         return p
     end
 end
 
-# Lop of unfinished steps
+# Lop off unfinished steps
 function mdtruncate( r::MolecularDynamicsTrial )
     if isfinished( r )
         return r

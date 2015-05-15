@@ -98,5 +98,5 @@ end
 
 absplots = Array(Gadfly.Plot, length(Bs))
 for i in 1:length(plots)
-    plots[i] = MeansvsT(absmeans[:,:,i], i, "Absolute Magnetization")
+    absplots[i] = MeansvsT(absmeans[:,:,i], i, "Absolute Magnetization")
 end
