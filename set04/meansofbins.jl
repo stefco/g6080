@@ -1,1 +1,0 @@
-set03/q1/meansofbins.jl
