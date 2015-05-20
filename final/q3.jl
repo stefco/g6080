@@ -10,7 +10,7 @@ N = 2000                    # number of subintervals
 ϵ = L/N                     # width of each subinterval
 ks = [200]                  # wavenumbers
 σ = 0.05                    # wavepacket width
-V0s = [5e3, 1e4, 2e4, 3e4, 5e4]      # step potentials
+V0s = [5e3:1000:5e4]         # step potentials
 x0 = -0.5                   # wavepacket starting position
 Ts = Float64[]
 Rs = Float64[]
@@ -42,11 +42,11 @@ for k in ks
         push!(Ts, T)
         push!(Rs, R)
         print("T = $T, R = $R...")
-        writedlm("trans_step_$V0", [T,R,I])
+        ### writedlm("trans_step_$V0", [T,R,I])
 
         println("done after $(size(ϕ)[2]) steps. Writing to file.")
-        writedlm("phis_step_im_$k\_$V0.dat", imag(phis))
-        writedlm("phis_step_re_$k\_$V0.dat", real(phis))
+        ### writedlm("phis_step_im_$k\_$V0.dat", imag(phis))
+        ### writedlm("phis_step_re_$k\_$V0.dat", real(phis))
     end
 end
 

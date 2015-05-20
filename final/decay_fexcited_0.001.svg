@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:gadfly="http://www.gadflyjl.org/ns"
+     version="1.2"
+     width="200mm" height="120mm" viewBox="0 0 200 120"
+     stroke="none"
+     fill="#000000"
+     stroke-width="0.3"
+     font-size="3.88"
+>
+<g class="plotroot xscalable yscalable" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-1">
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="none" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-2">
+    <text x="71.87" y="112" text-anchor="middle">Number of Steps</text>
+  </g>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-3">
+    <text x="19.4" y="104.39" text-anchor="middle">0.0000</text>
+    <text x="45.63" y="104.39" text-anchor="middle">0.0005</text>
+    <text x="71.87" y="104.39" text-anchor="middle">0.0010</text>
+    <text x="98.1" y="104.39" text-anchor="middle">0.0015</text>
+    <text x="124.34" y="104.39" text-anchor="middle">0.0020</text>
+  </g>
+  <g class="guide colorkey" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-4">
+    <g fill="#4C404B" font-size="2.82" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-5">
+      <text x="130.15" y="56.66" dy="0.35em" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-6" class="color_log(T)">log(T)</text>
+      <text x="130.15" y="60.29" dy="0.35em" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-7" class="color_Linear_Regression_of_log(T),_a_=_2474.5058302451157">Linear Regression of log(T), a = 2474.5058302451157</text>
+    </g>
+    <g stroke="none" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-8">
+      <rect x="127.34" y="55.76" width="1.81" height="1.81" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-9" class="color_log(T)" fill="#00BFFF"/>
+      <rect x="127.34" y="59.38" width="1.81" height="1.81" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-10" class="color_Linear_Regression_of_log(T),_a_=_2474.5058302451157" fill="#D4CA3A"/>
+    </g>
+    <g fill="#362A35" font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" stroke="none" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-11">
+      <text x="127.34" y="52.84" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-12">Color</text>
+    </g>
+  </g>
+  <g clip-path="url(#fig-87a06c0272454bdea3c7333ee54b2ba7-element-14)" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-13">
+    <g pointer-events="visible" opacity="1" fill="none" stroke="none" class="guide background" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-15">
+      <rect x="17.4" y="12.61" width="108.94" height="88.1" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-16"/>
+    </g>
+    <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-17">
+      <path fill="none" d="M17.4,98.71 L 126.34 98.71" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-18"/>
+      <path fill="none" d="M17.4,77.69 L 126.34 77.69" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-19"/>
+      <path fill="none" d="M17.4,56.66 L 126.34 56.66" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-20"/>
+      <path fill="none" d="M17.4,35.64 L 126.34 35.64" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-21"/>
+      <path fill="none" d="M17.4,14.61 L 126.34 14.61" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-22"/>
+    </g>
+    <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-23">
+      <path fill="none" d="M19.4,12.61 L 19.4 100.72" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-24"/>
+      <path fill="none" d="M45.63,12.61 L 45.63 100.72" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-25"/>
+      <path fill="none" d="M71.87,12.61 L 71.87 100.72" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-26"/>
+      <path fill="none" d="M98.1,12.61 L 98.1 100.72" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-27"/>
+      <path fill="none" d="M124.34,12.61 L 124.34 100.72" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-28"/>
+    </g>
+    <g class="plotpanel" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-29">
+      <g stroke-width="0.3" fill="none" class="geometry color_Linear_Regression_of_log(T),_a_=_2474.5058302451157" stroke="#D4CA3A" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-30">
+        <path fill="none" d="M43.01,83.34 L 45.63 80.74 48.26 78.13 50.88 75.53 53.5 72.93 56.13 70.33 58.75 67.73 61.37 65.13 64 62.53 66.62 59.92 69.25 57.32 71.87 54.72 74.49 52.12 77.12 49.52 79.74 46.92 82.36 44.32 84.99 41.71 87.61 39.11 90.23 36.51 92.86 33.91 95.48 31.31 98.1 28.71 100.73 26.11" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-31"/>
+      </g>
+      <g stroke-width="0.3" fill="none" class="geometry color_log(T)" stroke="#00BFFF" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-32">
+        <path fill="none" d="M43.01,94.46 L 45.63 87.17 48.26 81.21 50.88 76.24 53.5 71.76 56.13 67.9 58.75 64.52 61.37 61.15 64 58.44 66.62 55.5 69.25 53.3 71.87 50.88 74.49 48.4 77.12 46.5 79.74 44.83 82.36 42.95 84.99 40.88 87.61 38.93 90.23 37.28 92.86 35.93 95.48 34.72 98.1 33.5 100.73 32.17" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-33"/>
+      </g>
+    </g>
+  </g>
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-34">
+    <text x="16.4" y="98.71" text-anchor="end" dy="0.35em" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-35">-7</text>
+    <text x="16.4" y="77.69" text-anchor="end" dy="0.35em" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-36">-6</text>
+    <text x="16.4" y="56.66" text-anchor="end" dy="0.35em" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-37">-5</text>
+    <text x="16.4" y="35.64" text-anchor="end" dy="0.35em" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-38">-4</text>
+    <text x="16.4" y="14.61" text-anchor="end" dy="0.35em" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-39">-3</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="none" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-40">
+    <text x="8.81" y="54.66" text-anchor="middle" dy="0.35em" transform="rotate(-90, 8.81, 56.66)" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-41">log(Probability)</text>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="none" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-42">
+    <text x="71.87" y="10.61" text-anchor="middle" id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-43">Log of Leakage Probability vs. Time for Φexcited initial state, s = 0.001</text>
+  </g>
+</g>
+<defs>
+<clipPath id="fig-87a06c0272454bdea3c7333ee54b2ba7-element-14">
+  <path d="M17.4,12.61 L 126.34 12.61 126.34 100.72 17.4 100.72" />
+</clipPath
+></defs>
+</svg>

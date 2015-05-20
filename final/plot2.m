@@ -26,8 +26,6 @@ for k = 1:size(phis_re_200_005,2)
     M_re_200_005(k) = getframe;
 end
 movie2gif(M_re_200_005, 'M_re_200_005.gif')
-movie2avi(M_re_200_005, 'M_re_200_005.avi')
-
 
 for k = 1:size(phis_re_200_002,2)
     plot(x, phis_re_200_002(:,k) );

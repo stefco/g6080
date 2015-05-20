@@ -177,7 +177,8 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.1-Setup">1.1 Setup<a class="anchor-link" href="#1.1-Setup">&#182;</a></h2><h3 id="Show-that-Eq.-(2)-is-unitary."><em>Show that Eq. (2) is unitary.</em><a class="anchor-link" href="#Show-that-Eq.-(2)-is-unitary.">&#182;</a></h3><p>Equation 2.2</p>
+<p><a href="https://github.com/stefco/g6080">The code for this project can be found here, under the <em>final</em> folder.</a></p>
+<h2 id="1.1-Setup">1.1 Setup<a class="anchor-link" href="#1.1-Setup">&#182;</a></h2><h3 id="Show-that-Eq.-(2)-is-unitary."><em>Show that Eq. (2) is unitary.</em><a class="anchor-link" href="#Show-that-Eq.-(2)-is-unitary.">&#182;</a></h3><p>One definition of the unitarity of a matrix $U$ is that $U^\dagger U = I$. Equation 2.2</p>
 $$
   \phi^{(n+1)} = \Bigg( \frac{1-a}{1+a} \Bigg) \phi^{(n)},
 $$<p>where $a \equiv iH\Delta t/2$, can be derived by applying the Hamiltonian to the average of the current and next state vector, $(\phi_{i} + \phi_{i+1})/2$ (which we define as $\chi/2$ below), and making the approximaton $\partial \phi / \partial t \rightarrow \Delta \phi / \Delta t = (\phi_{i} + \phi_{i+1})/ \Delta t$. Since this updating scheme is a linear approximation in time, $A \equiv (1+a)^{-1}(1-a)$ should unitarity as $a \rightarrow 0$, which occurs as $\Delta t \rightarrow 0$. To show this, we start by observing that</p>
@@ -202,12 +203,35 @@ $$<p>which clearly converges to the identity matrix as $\Delta t \rightarrow 0$.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Determine-units."><em>Determine units.</em><a class="anchor-link" href="#Determine-units.">&#182;</a></h3><p>Note that the factors $m\epsilon^2/(\hbar\Delta{t})$ and $m\epsilon^2 V/\hbar^2)$ are dimensionless. $\hbar^2/m$ is implicitly set to 1 in the derivation of Eq. 2.2, so these terms reduce to $\epsilon^2/(\sqrt{m}\Delta t)$ and $\epsilon^2 V$. We would like to pick units such that the first of these terms equals unity. thus simplifying the $\chi$ equation (eq. 6) to</p>
+<h3 id="Determine-units."><em>Determine units.</em><a class="anchor-link" href="#Determine-units.">&#182;</a></h3><p>The operators in the Schrodinger equation can be made dimensionless by dividing through by units of energy. Choose the rest energy of the particle, $mc^2$, giving</p>
+$$
+  \frac{i\hbar}{mc^2}\frac{\partial}{\partial t} \phi = -\Big(\frac{\hbar}{mc}\frac{\partial}{\partial x}\Big)^2 \phi
+  + \frac{V}{mc^2} \phi
+$$<p>which can be turned into</p>
+$$
+  i\frac{\partial}{\partial \tilde{t}} \phi = \frac{\partial^2}{\partial \tilde{x}^2} \phi + \tilde{V} \phi
+$$<p>by substituting $t$, $x$, and $V$ for their dimensionless counterparts,</p>
+$$
+  \frac{mc^2}{\hbar}t \rightarrow \tilde{t}
+$$$$
+  \frac{mc}{\hbar}x \rightarrow \tilde{x}
+$$$$
+  \frac{1}{mc^2}V \rightarrow \tilde{V}.
+$$<p>The dimensionality of $\phi$ can similarly be removed by multiplying it by units of square root length,</p>
+$$
+  \frac{1}{mc^2}V \rightarrow \tilde{V},
+$$<p>and $\epsilon$ must be handled the same as $x$ in order to remove its dimensionality,</p>
+$$
+  \frac{mc}{\hbar}\epsilon \rightarrow \tilde{\epsilon}.
+$$<p>Note that the factors $m\epsilon^2/(\hbar\Delta{t})$ and $m\epsilon^2 V/\hbar^2$ are already dimensionless but now simplify to $\tilde{\epsilon}^2/\Delta{\tilde{t}}$ and $\tilde{\epsilon}^2\tilde{V}$. If we choose to express our dimensionless time step $\Delta{\tilde{t}}$ in units of $\tilde{\epsilon}$, the $\chi$ equation (eq. 6) simplifies to</p>
 $$
   \chi^{(n)}_{j+1} + \Bigg( -2 + 4i - 2\epsilon^2 V_{j} \Bigg)\chi^{(n)}_{j} + \chi^{(n)}_{j-1} = 8i\phi^{(n)}_{j}.
-$$<p>Setting $\epsilon^2/(\sqrt{m}\Delta{t}) = 1$ requires that we pick units where $m = (\epsilon^2 / \Delta{t})^2$; we are then free to pick $\epsilon$ and $\Delta t$.</p>
-<p>We need $\epsilon$ and $\Delta t$ to be small enough for the discretized Laplacian to work well. We're working in a box of length $L = 2$ (in our length units), so $\epsilon = L/N = 2/N$ where $N+1$ is defined to be the number of discrete positions (endpoints included). In order to simulate wave numbers of order 1,000 with high accuracy, we should pick $N$ to be on the order of 100,000, which should be very manageable for a normal laptop (Since taking matrix products with a tridiagonal matrix requires only $O(N)$ calculations). Initially I set $N = 20,000$, giving $\epsilon = 10^{-4}$, but this resulted in extremely slow evolution, so I instead set $N = 2,000$ (after trial and error), giving $\epsilon = 10^{-3}$. If we'd like to set $m = \hbar^2 = 1$, we need $\Delta{t} = \epsilon^2$, in this case giving $\Delta{t} = 10^{-6}$.</p>
-<p>The main point, though, is that we're choosing units where $\hbar = 1$, $m = 1$, and $\epsilon^2 / \Delta{t} = 1$.</p>
+$$<p>where all quantities are implicitly dimensionless. In addition to simplifying the formula, this approach makes it easy to find $\Delta{\tilde{t}}$ by simply squaring $\tilde{\epsilon}$.</p>
+<p>For the reverse time evolution operator, we get</p>
+$$
+  \chi^{(n)}_{j+1} + \Bigg( -2 - 4i - 2\epsilon^2 V_{j} \Bigg)\chi^{(n)}_{j} + \chi^{(n)}_{j-1} = 8i\phi^{(n)}_{j}.
+$$<p>simply by defining $\Delta t$ in units of $m\epsilon^2/\hbar$, which now gives -1 since the time change is negative.</p>
+<p>We need $\epsilon$ and $\Delta t$ to be small enough for the discretized Laplacian to work well. We're working in a box of length $L = 2$ (dimensionless length units), so $\epsilon = L/N = 2/N$ where $N+1$ is defined to be the number of discrete positions (endpoints included). In order to simulate wave numbers of order 100 with high accuracy, we should pick $N$ to be on the order of 1,000.</p>
 
 </div>
 </div>
@@ -217,10 +241,28 @@ $$<p>Setting $\epsilon^2/(\sqrt{m}\Delta{t}) = 1$ requires that we pick units wh
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.2-Evolution-of-a-wavepacket">1.2 Evolution of a wavepacket<a class="anchor-link" href="#1.2-Evolution-of-a-wavepacket">&#182;</a></h2><p>Create a wavepacket function constructor that takes $k_{0}$ and $\sigma$ as parameters and have it return a wavefunction $\phi (x)$:</p>
+<h3 id="Further-considerations"><em>Further considerations</em><a class="anchor-link" href="#Further-considerations">&#182;</a></h3><p>The probability that a particle will be found in the range $[x_{min}, x_{max}]$ can be computed via the integral</p>
+$$
+  P(x \in [x_{min}, x_{max}]) = \int_{x_{min}}^{x_{max}} dx \Psi^{*}\Psi
+$$<p>which can be calculated in our discrete model (where $\phi$ is the discretized wavefunction) as</p>
+
+<pre><code>epsilon * dot(phi[i:j], phi[i:j])
+
+</code></pre>
+<p>where the indices $i, j$ correspond to $x_{min}, x_{max}$ (respectively). This is implemented via the function <code>prob</code>, which takes a <code>Wave</code> object, <code>xmin</code>, and <code>xmax</code> as arguments.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="1.2-Evolution-of-a-wavepacket">1.2 Evolution of a wavepacket<a class="anchor-link" href="#1.2-Evolution-of-a-wavepacket">&#182;</a></h2><h3 id="Creating-the-time-evolution-matrix-and-solving-the-equation-for-$\chi$"><em>Creating the time evolution matrix and solving the equation for $\chi$</em><a class="anchor-link" href="#Creating-the-time-evolution-matrix-and-solving-the-equation-for-$\chi$">&#182;</a></h3><p>Create a wavepacket function constructor that takes $k_{0}$ and $\sigma$ as parameters and have it return a wavefunction $\phi (x)$:</p>
 $$
   \Phi (k_{0}, \sigma, x_{0}) = \phi(x) = e^{ik_{0}x} e^{-(x-x_{0})^2/(2\sigma^2)}
-$$<p>Using the Kronecker delta functions from <code>Laplacian</code> module made for the last problem set, construct the $\chi$ evolution matrix from Eq. 6, rewriting it as and use it (along with equation 5) to update the state vector, $\phi$. Implement both the $\chi$ evolution matrix and the $\phi$ evolution function in a new module called <code>Evolution</code>. Rewrite Eq. 6 using Einstein summation notation as</p>
+$$<p>Using the Kronecker delta functions from <code>Laplacian</code> module made for the last problem set, construct the $\chi$ evolution matrix from Eq. 6, rewriting it as and use it (along with equation 5) to update the state vector, $\phi$. Implement both the $\chi$ evolution matrix and the $\phi$ evolution function in a new module called <code>Evolution</code>. Rewrite Eq. 6 as</p>
 $$
    A_{i,j}\chi^{(n)}_{j} = \phi^{(n)}_{i}
 $$<p>where</p>
@@ -230,6 +272,29 @@ $$<p>which can be efficiently solved by LU factorization and plugged into Eq. 5:
 $$
   \phi^{(n+1)} = \chi^{(n)} - \phi^{(n)}.
 $$<p>We can preserve the boundary conditions $\phi = 0$ by setting our initial $\phi$ to zero at those points and then setting the first and last rows and columns of A to zero, except for <code>A[1,1]</code> and <code>A[end,end]</code>, which should both equal 1 in order to satisfy the Thomas algorithm stability requirement that A be diagonally dominant.</p>
+<p>For the reverse time evolution operator, we have</p>
+$$
+  B_{i,j} = -\frac{i}{8}\delta_{i+1,j} +\Big(\frac{(1 + \epsilon^2 V_{j})}{4}i - 0.5\Big)\delta_{i,j} -\frac{i}{8}\delta_{i-1,j}.
+$$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Choosing-$k{0}$-and-$\sigma$_"><em>Choosing $k</em>{0}$ and $\sigma$_<a class="anchor-link" href="#Choosing-$k{0}$-and-$\sigma$_">&#182;</a></h3><p>Our starting wavefunction (including the normalization factor of $(1/\pi\sigma^2)^{1/4}$) is given by</p>
+$$
+  \phi(x) = \Big( \frac{1}{\pi\sigma^2} \Big)^{1/4} e^{i k_{0} x} e^{-(x-x_{0})^2 / 2\sigma^2},
+$$<p>from which we can extract the spread in $k$ values, $\sigma_{k}$, via Fourier transform,</p>
+$$
+  \tilde{\phi}(k) = \frac{1}{\sqrt{2\pi}} \Big( \frac{1}{\pi\sigma^2} \Big)^{1/4} \int_{-\infty}^{\infty} dx e^{i k_{0} x} e^{-(x-x_{0})^2 / 2\sigma^2} e^{-ikx}
+$$<p>giving</p>
+$$
+  \tilde{\phi}(k) = \Big( \frac{\sigma^2}{\pi} \Big)^{1/4} e^{-\sigma^2(k-k_{0})^2/2}.
+$$<p>The standard deviation of $k$ is $\sigma_{k} = 1 / \sqrt{2}\sigma$, giving $\sigma = 1 / \sqrt{2}\sigma_{k}$ (note that $\sigma$ itself is not the standard deviation of $x$; that's $\sigma/\sqrt{2}$). Now, we want to make sure that $\sigma_{k} << k_{0}$ in order to slow dispersion. We want the wavelength to be long enough that it doesn't suffer from the discretization of the underlying graph; pick $\lambda = 2\pi/k_{0} > 10\epsilon$, giving $k_{0} > \pi/5\epsilon$, which is approximately 600 for $N=2,000$ (this lower bound on $k_{0}$ can obviously be raised by increasing the number of grid subdivisions).</p>
+<p>We also want a relatively narrow wavepacket so that the probability is spatially well confined, so put an upper limit on $\sigma$ of 0.05. Picking $\sigma = 0.05$, $k_{0} = 200$, then, gives $\sigma_{k}/k_{0} \approx 0.07$, which is small enough that spreading will be fairly negligible (on the order of one unit spread for every 10 units of forward propagation).</p>
 <p>I tried the simulation with a few combinations of wavenumber $(k)$ and wavepacket width $(\sigma)$. The simulation function runs for 16,000 steps and samples a frame every 50 steps for the animations shown below. Other parameters are as noted above. The simulation is implemented in a way that makes it quite straightforward to run simulations with different combinations of parameters.</p>
 
 </div>
@@ -240,9 +305,6 @@ $$<p>We can preserve the boundary conditions $\phi = 0$ by setting our initial $
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Wave-Packet-propagating-in-Free-Space-with-k-=-100,-$\sigma$-=-0.02">Wave Packet propagating in Free Space with k = 100, $\sigma$ = 0.02<a class="anchor-link" href="#Wave-Packet-propagating-in-Free-Space-with-k-=-100,-$\sigma$-=-0.02">&#182;</a></h3><p><img src="M_re_100_002.gif" alt="k=100, sigma=0.02"></p>
-<h3 id="Wave-Packet-propagating-in-Free-Space-with-k-=-100,-$\sigma$-=-0.05">Wave Packet propagating in Free Space with k = 100, $\sigma$ = 0.05<a class="anchor-link" href="#Wave-Packet-propagating-in-Free-Space-with-k-=-100,-$\sigma$-=-0.05">&#182;</a></h3><p><img src="M_re_100_005.gif" alt="k=100, sigma=0.05"></p>
-<h3 id="Wave-Packet-propagating-in-Free-Space-with-k-=-200,-$\sigma$-=-0.02">Wave Packet propagating in Free Space with k = 200, $\sigma$ = 0.02<a class="anchor-link" href="#Wave-Packet-propagating-in-Free-Space-with-k-=-200,-$\sigma$-=-0.02">&#182;</a></h3><p><img src="M_re_200_002.gif" alt="k=200, sigma=0.02"></p>
 <h3 id="Wave-Packet-propagating-in-Free-Space-with-k-=-200,-$\sigma$-=-0.05">Wave Packet propagating in Free Space with k = 200, $\sigma$ = 0.05<a class="anchor-link" href="#Wave-Packet-propagating-in-Free-Space-with-k-=-200,-$\sigma$-=-0.05">&#182;</a></h3><p><img src="M_re_200_005.gif" alt="k=200, sigma=0.05"></p>
 
 </div>
@@ -254,9 +316,9 @@ $$<p>We can preserve the boundary conditions $\phi = 0$ by setting our initial $
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The wave packet with $k = 200$, $\sigma = 0.05$ showed little dispersion as it evolved, so I picked these parameters for part 3. Run <a href="plot2.m">plot2.m</a> to see better versions of the graphs in MATLAB. You can restart the GIFs by refreshing the page.</p>
-<p>I also tested the stability of the algorithm by running for 2,000 steps before taking the complex conjugate of $\phi$ (thus reversing its momentum) and simulating for another 2,000 steps to return it to its original state.</p>
+<p>I also tested the stability of the algorithm by running for 2,000 steps before using the time evolution operator with $\Delta{t} \rightarrow -\Delta{t}$. The effect is the same as taking the complex conjugate of $\phi$ (thus reversing its momentum) and simulating for another 2,000 steps to return it to its original state.</p>
 <h3 id="Wave-Packet-propagating-for-2,000-Steps-before-being-reversed,-with-k-=-200,-$\sigma$-=-0.05">Wave Packet propagating for 2,000 Steps before being reversed, with k = 200, $\sigma$ = 0.05<a class="anchor-link" href="#Wave-Packet-propagating-for-2,000-Steps-before-being-reversed,-with-k-=-200,-$\sigma$-=-0.05">&#182;</a></h3><p><img src="M_rev_re_200_005.gif" alt="k=200, sigma=0.05"></p>
-<p>The average absolute error between initial and final states was <code>-3.7646e-17</code>, which is plenty stable for our purposes. Taking <code>mean(abs(y2(2:end-1)).^2) - mean(abs(y1(2:end-1)).^2)</code> (where y2 and y1 are the final and initial states, respectively) returned precisely zero, meaning that the area of the graphs is preserved to an even higher degree of accuracy. Since inverting the time step creates the inverse matrix, we can conclude that our time evolution matrix is unitary.</p>
+<p>The average absolute error between initial and final states was <code>-3.7646e-17</code>, which is plenty stable for our purposes. Taking <code>mean(abs(y2(2:end-1)).^2) - mean(abs(y1(2:end-1)).^2)</code> (where y2 and y1 are the final and initial states, respectively) returned precisely zero up to machine precision, confirming that the matrix preserves area and is unitary to a high degree of accuracy (since $U^\dagger U$ leaves the wave vector unchanged).</p>
 
 </div>
 </div>
@@ -266,13 +328,23 @@ $$<p>We can preserve the boundary conditions $\phi = 0$ by setting our initial $
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.3-Scattering-from-a-Step-Function-Potential">1.3 Scattering from a Step Function Potential<a class="anchor-link" href="#1.3-Scattering-from-a-Step-Function-Potential">&#182;</a></h2><p>I tried a few different values for the potential energy step. For these, I started the wave packet at $x=-0.5$ so that the right hand side of the field would be approximately zero initially. I set up my simulation to stop running as soon as the magnitude of the wave near the right edge became greater than $10^{-3}$, at which point it would record the average value of the square of the wavefunction on both left and right hand sides of the step, and then normalize both of those averages to get the transmission and reflection probabilities. There is a very steep drop-off in transmission probability between $V = 10,000$ and $V = 30,000$.</p>
+<h2 id="1.3-Scattering-from-a-Step-Function-Potential">1.3 Scattering from a Step Function Potential<a class="anchor-link" href="#1.3-Scattering-from-a-Step-Function-Potential">&#182;</a></h2><p>The theoretical result for scattering off of a step potential boundary gives reflection and transmission coefficients</p>
+$$
+  T = \frac{4k_{1}k_{2}}{(k_{1}+k_{2})^2}
+$$$$
+  R = \frac{(k_{1}-k_{2})^2}{(k_{1}+k_{2})^2}
+$$<p>where</p>
+$$
+  k_{1} = \sqrt{2E}
+$$$$
+  k_{2} = \sqrt{2(E-V_{0})} = \sqrt{k_{1}^2-2V_{0}}
+$$<p>with $T=0, R=1$ in the case where $E=k^2/2<V_{0}$. Scattering a wave packet with momentum $k_{0}$ centered about $k_{1}$ should produce a similar result without the sharp cutoff at $E=k^2/2<V_{0}$, since half of the wave's momentum spectrum lies above $k_{0}$.</p>
+<p>Setting $k_{0}=200$ as before gives $E = 20,000$. I started the wave packet at $x=-0.5$ so that the right hand side of the field would be approximately zero initially. I set up my simulation to stop running as soon as the magnitude of the wave near the right edge became greater than $10^{-3}$, at which point it would record the average value of the square of the wavefunction on both left and right hand sides of the step, and then normalize both of those averages to get the transmission and reflection probabilities. The graph below shows $T$ and $R$ vs. step potential $V_{0}$, with the theoretically predicted results also shown for comparison.  There is a very steep drop-off in transmission probability between $V = 10,000$ and $V = 30,000$ and generally tight tracking of the predicted results, but with the previously noted smoothing effect due to the continuum of values in the wave packet's momentum spectrum.</p>
 <p><img src="VTR.svg" alt="Transmission Probability vs. Potential"></p>
-<p>Note the change in behavior:</p>
-<h3 id="$V-=-10,000$">$V = 10,000$<a class="anchor-link" href="#$V-=-10,000$">&#182;</a></h3><p><img src="M_step_re_200_10000.gif" alt="Wave packet hitting step"></p>
-<h3 id="$V-=-20,000$">$V = 20,000$<a class="anchor-link" href="#$V-=-20,000$">&#182;</a></h3><p><img src="M_step_re_200_20000.gif" alt="Wave packet hitting step"></p>
-<h3 id="$V-=-30,000$">$V = 30,000$<a class="anchor-link" href="#$V-=-30,000$">&#182;</a></h3><p><img src="M_step_re_200_30000.gif" alt="Wave packet hitting step"></p>
-<p>Clearly the large V limit of total reflection/zero transmission is approached.</p>
+<h3 id="Scattering-off-of-a-Step-Potential,-$V-=-10,000$">Scattering off of a Step Potential, $V = 10,000$<a class="anchor-link" href="#Scattering-off-of-a-Step-Potential,-$V-=-10,000$">&#182;</a></h3><p><img src="M_step_re_200_10000.gif" alt="Wave packet hitting step"></p>
+<h3 id="Scattering-off-of-a-Step-Potential,-$V-=-20,000$">Scattering off of a Step Potential, $V = 20,000$<a class="anchor-link" href="#Scattering-off-of-a-Step-Potential,-$V-=-20,000$">&#182;</a></h3><p><img src="M_step_re_200_20000.gif" alt="Wave packet hitting step"></p>
+<h3 id="Scattering-off-of-a-Step-Potential,-$V-=-30,000$">Scattering off of a Step Potential, $V = 30,000$<a class="anchor-link" href="#Scattering-off-of-a-Step-Potential,-$V-=-30,000$">&#182;</a></h3><p><img src="M_step_re_200_30000.gif" alt="Wave packet hitting step"></p>
+<p>Even when the step energy equals that of the central $k_{0}$ at $V = 20,000$, the higher energy components of the wave packet are still able to pass through to the right hand side. By the time $V = 30,000$, though, the contributions from higher energies is negligible, and the transmission probability drops nearly to zero.</p>
 
 </div>
 </div>
@@ -282,10 +354,29 @@ $$<p>We can preserve the boundary conditions $\phi = 0$ by setting our initial $
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.4-Decay-of-an-Unstable-State">1.4 Decay of an Unstable State<a class="anchor-link" href="#1.4-Decay-of-an-Unstable-State">&#182;</a></h2><p>Setting $w=0.2$ and using our Hamiltonian on the suggested starting function, <code>(HH * sin(π*[-1:1e-3:1] ./ 0.2)) ./ sin(π*[-1:1e-3:1] ./ 0.2)</code>, gives an energy of 123.368. Set b to 50 and h to 125, so that it is classically impossible to escape from the pocket but so that tunneling is minimally suppressed. Then vary s (while keeping the starting wavefunction fixed) and use the previous method to detect when the wavefunction has "leaked" to the boundaries; the more of the wave that's leaked, the closer we are to resonance.</p>
-<p><img src="decay_close.svg" alt="Leakage probability vs pocket width, close to start">
-<img src="decay.svg" alt="Leakage probability vs pocket width"></p>
-<p>Unfortunately, I was not able to find a resonance state near the recommended starting point; it was only by drastically decreasing the width of the pocket that leakage was increased, but this is due to the fact that, by cutting into the sine function on either side, we're introducing higher energy harmonics that aren't classically confined to the pocket (put another way, we're decreasing positional uncertainty and hence increasing energy uncertainty). Given more time, I would have tried varying the heights of the potential barriers.</p>
+<h2 id="1.4-Decay-of-an-Unstable-State">1.4 Decay of an Unstable State<a class="anchor-link" href="#1.4-Decay-of-an-Unstable-State">&#182;</a></h2><p>In the limit as $h \rightarrow \infty$, the pocket potential becomes an infinite square well potential, whose energy eigenstates are sinusoids centered at zero and with wavenumbers of the form $n\pi/w$. The energy eigenvalues in that limit are $E_{n} = \hbar^2 k^2 / 2m - V_{0}$, which translates to $E_{n} = n^2\pi^2/2w^2$ using our dimensionless units.</p>
+<p>I tried the test with the ground state and the first excited state,</p>
+$$
+  \phi_{ground} = \sqrt{\frac{2}{w}} cos\Big(\frac{\pi x}{w}\Big)
+$$$$
+  \phi_{1} = \sqrt{\frac{2}{w}} sin\Big(\frac{2\pi x}{w}\Big).
+$$<p>I varied the thickness of the pocket walls, choosing</p>
+$$
+  s \in \{0.001, 0.01, 0.1\}
+$$<p>and setting</p>
+$$
+  w = 0.2
+$$$$
+  b = 1
+$$<p>for the width of the pocket and energy inside the pocket, giving energies</p>
+$$
+  E_{ground} = \frac{\pi^2}{2w^2} + b = 124.37
+$$$$
+  E_{1} = \frac{2\pi^2}{w^2} + b = 494.48,
+$$<p>which, reassuringly, is the same value calculated by $\langle \phi | H | \phi \rangle$, where $H$ is the Hamiltonian matrix calculated for the discrete simulation in the limit where the pocket walls become infinite. I chose the height of the potential walls to be roughly twice the first excited energy:</p>
+$$
+  h = 1,000
+$$<p>For both the excited state and the ground state, it took very little time for the "leaking" part of the wavefunction to reach the outer walls; unsurprisingly, the . The amount of leakage depended appreciably on the thickness of the wall $s$; for $s = 0.1$, half the width of the pocket itself, the leakage is miniscule:</p>
 
 </div>
 </div>
@@ -295,9 +386,49 @@ $$<p>We can preserve the boundary conditions $\phi = 0$ by setting our initial $
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="1.5-Scattering">1.5 Scattering<a class="anchor-link" href="#1.5-Scattering">&#182;</a></h2><p>We can reuse our approach from part 3 to scatter off of the potential from part 4. Since I couldn't find the resonant state in part 4, I wasn't able to determine its energy, so I'm just scattering wave packets that are close to what we started off with.</p>
+<p><img src="wave_fground_0.1.svg" alt="Wave, ground state, at start and finish">
+<img src="decay_fground_0.1.svg" alt="Transmission and Reflection vs Time, ground state"></p>
+<p>For a thinner wall, with $s = 0.01$, the transmission probability is clearly visible for both the ground and excited starting states. There is also a visible distortion in $\phi$ at the borders of the pocket:</p>
+<p><img src="wave_fground_0.01.svg" alt="Wave, ground state, at start and finish">
+<img src="decay_fground_0.01.svg" alt="Transmission and Reflection vs Time, ground state">
+<img src="wave_fexcited_0.01.svg" alt="Wave, ground state, at start and finish">
+<img src="decay_fexcited_0.01.svg" alt="Transmission and Reflection vs Time, ground state"></p>
+<p>As expected, an extremely thin wall with $s = 0.001$ (equal to $\epsilon$, and therefore the smallest $s$ we can try simulating) produces no visible distortion in $\phi$:</p>
+<p><img src="wave_fground_0.001.svg" alt="Wave, ground state, at start and finish">
+<img src="decay_fground_0.001.svg" alt="Transmission and Reflection vs Time, ground state">
+<img src="wave_fexcited_0.001.svg" alt="Wave, ground state, at start and finish">
+<img src="decay_fexcited_0.001.svg" alt="Transmission and Reflection vs Time, ground state"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As the graphs show, the leakage probability deviates significantly from being perfectly exponential. We can nonetheless clearly see that the first excited state leaks approximately four times as quickly as the ground state.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="1.5-Scattering">1.5 Scattering<a class="anchor-link" href="#1.5-Scattering">&#182;</a></h2><p>We can reuse our approach from part 3 to scatter off of the potential from part 4. We send in a wave packet with $k_0 = 2\pi/w$, the wavenumber of the first excited resonant state, followed by more wavepackets at nearby frequencies. We need $k_0$ to be larger than the resonant wave number from part 4, though, since the wave packet will disperse too quickly if it is small. So, divide the pocket width by 10:</p>
+$$
+  w = 0.02,
+$$<p>giving a $k_{0}$ that's ten times larger. The energy is now 100 times larger</p>
+$$
+  E_{ground} = 12,336,
+$$<p>so multiply the barrier height by 100 as well. For this run, set the wall thickness to</p>
+$$
+  s = 0.005
+$$<p>so that it isn't thicker than the width of the pocket. Run the simulation for multiple $k_{0}$ values near the resonance frequency and find the transmission probabilities for each.</p>
 <p><img src="scatter.svg" alt="Transmission vs. momentum"></p>
-<p>This was with the wave packet from earlier; clearly its momentum is too high. Unfortunately, I ran out of time on this one and didn't scale down the energy of the wave packet to that of the confined wave from part 4. Had I done so, my approach would have been the same as with the earlier problems (i.e. varying the parameters, in this case energy of the wave packet, and writing automated routines to detect desired behaviour, in this case, a high transmission coefficient).</p>
+<p>We find that the reflection probability peaks whenever we send in a wavepacket whose central wavenumber $k_{0}$ is near an integer multiple of the ground resonant state's wavenumber.Put another way, we (locally) maximize reflection by sending in wave packets whose energies are the same as the allowed energies of the infinite square well of width $2$. I tried this for several other combinations of pocket width $w$ and barrier thickness $s$, and across several ranges of $k_{0}$, and found the same result.  Also visible is a roughly exponential rise in reflection probability as $k$ increases, which can be seen pushing the reflection peak leftwards in the vicinity of $k_{0} = 3k_{ground}$.</p>
 
 </div>
 </div>
